@@ -2,6 +2,6 @@
 
 **Tuomas Soini**
 
-## module1
+## mod01
 
-Ensimmäinen testi jossa kokeiltiin toimiiko ohjelma
+Ensimmäinen tehtävä jossa kokeiltiin toimiiko ohjelma
