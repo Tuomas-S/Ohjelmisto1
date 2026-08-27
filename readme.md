@@ -5,3 +5,7 @@
 ## mod01
 
 Ensimmäinen tehtävä jossa kokeiltiin toimiiko ohjelma
+
+## mod02
+
+Gitin testausta
