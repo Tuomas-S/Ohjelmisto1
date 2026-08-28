@@ -13,3 +13,7 @@ Testattiin toimiiko git ja luotiin repositorio
 ## mod03
 
 Muuttujat ja vuorovaikutteiset ohjelmat
+
+## peliprojekti
+
+Ensimmäinen projektityö (tekstipohjainen seikkailupeli)

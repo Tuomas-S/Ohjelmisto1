@@ -5,7 +5,7 @@ luodit = float(input("Anna luodit: "))
 naulat = naulat + leiviskät * 20
 luodit = luodit + naulat * 32
 gramma = luodit * 13.2 % 1000
-kilogramma = (luodit * 13.2 - gramma) / 1000
+kilogramma = (luodit * 13.2) // 1000
 
 print("_  _  _  _  _  _  _  _\n")
 print("Massa nykymittojen mukaan:")
