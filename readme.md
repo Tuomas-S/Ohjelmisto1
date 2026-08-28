@@ -4,8 +4,12 @@
 
 ## mod01
 
-Ensimmäinen tehtävä jossa kokeiltiin toimiiko ohjelma
+Ensimmäinen tehtävä jossa kokeiltiin toimiiko vscode ja python
 
 ## mod02
 
-Gitin testausta
+Testattiin toimiiko git ja luotiin repositorio
+
+## mod03
+
+Muuttujat ja vuorovaikutteiset ohjelmat
