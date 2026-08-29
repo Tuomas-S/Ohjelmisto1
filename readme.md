@@ -14,6 +14,10 @@ Testattiin toimiiko git ja luotiin repositorio
 
 Muuttujat ja vuorovaikutteiset ohjelmat
 
+## mod04
+
+If, elif ja else komennot
+
 ## peliprojekti
 
 Ensimmäinen projektityö (tekstipohjainen seikkailupeli)
