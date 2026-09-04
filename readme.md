@@ -30,7 +30,8 @@ Tehtävät 5.1-5.6
 ## mod06
 
 For toistorakenne  
-Tehtävät 6.1-6.4
+Tehtävät 6.1-6.4  
+alkuluku.py on oma kokeilu alkulukujen löytämiseksi
 
 ## peliprojekti
 
