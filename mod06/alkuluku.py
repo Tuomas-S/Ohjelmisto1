@@ -2,6 +2,7 @@ alue = int(input("Etsi alkuluvut väliltä 1-"))
 
 alkuluvut = []
 jako = 3 # ohjelma ei tarkasta yhden tai kahden jaollisuutta optimisoinnin vuoksi
+lukumäärä = 1
 on_alkuluku = True # ohjelma olettaa alussa kaikkien lukujen olevan alkulukuja
 
 # lisätään alkuluku 2, jos tarvetta
@@ -24,6 +25,7 @@ for luku in range (3, alue + 1, 2):
 # jos ohjelma ei todistanut luvun olevan alkuluku, luku lisätään listaan
     if on_alkuluku == True:
         alkuluvut.append(luku)
+        lukumäärä += 1
         jako = 3
 
 # jos ohjelma toteaa ettei luku ole alkuluku, palataan takaisin alkuasetuksiin ja kokeillaan seuraavaa lukua
@@ -33,3 +35,4 @@ for luku in range (3, alue + 1, 2):
 
 # kun toistorakenne päättyy, tulostetaan kaikki alkuluvut
 print(alkuluvut)
+print("\nVälillä 1-" + str(alue) + " on yhteensä " + str(lukumäärä) + " alkulukua.")
