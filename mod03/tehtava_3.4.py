@@ -6,7 +6,7 @@ summa = lk1 + lk2 + lk3
 tulo = lk1 * lk2 * lk3
 keskiarvo = summa / 3
 
-print("_  _  _  _  _  _  _  _\n")
+print("")
 print("Lukujen summa on" , round(summa, 5))
 print("Lukujen tulo on" , round(tulo, 5))
 print("Lukujen keskiarvo on" , round(keskiarvo, 5))

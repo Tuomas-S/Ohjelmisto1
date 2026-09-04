@@ -15,7 +15,7 @@ while True:
 
 ikä = int(ikä)
 if ikä < 12:
-    print("Olet alaikäinen, suljetaan sovellus.")
+    print(nimi,"olet alaikäinen, nähdään", 12 - ikä, "vuoden päästä :-)")
     sys.exit()
 else:
     print("\nTervetuloa, " + nimi + "!")
@@ -28,5 +28,5 @@ while valinta != "lopeta":
     elif valinta == "2":
         print("\nSatunnaislukusi on " + str(random.randint(1,10)))
     elif valinta == "3":
-        nimi = input("\nAnna uusi nimi: ")
-        print("\nUusi nimesi on " + nimi + "!")
+        nimi = input("\nNykyinen nimesi: " + nimi + "\nAnna uusi nimi: ")
+        print("\nUusi nimesi on " + nimi + ".")
