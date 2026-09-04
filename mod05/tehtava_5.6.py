@@ -16,4 +16,4 @@ while luku < m:
 
 pi = 4 * n / m
 print("\nPiin likiarvo on " + str(pi))
-print("\nPiin oikea arvo on" + str(math.pi))
+print("\nPiin oikea arvo on " + str(math.pi))
