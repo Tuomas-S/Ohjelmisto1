@@ -27,6 +27,10 @@ Tehtävät 4.1-4.4
 While silmukka
 Tehtävät 5.1-5.6
 
+## mod06
+
+For toistorakenne
+
 ## peliprojekti
 
 Ensimmäinen projektityö (tekstipohjainen seikkailupeli)
