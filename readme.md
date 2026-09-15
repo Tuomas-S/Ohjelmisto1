@@ -33,7 +33,12 @@ For toistorakenne
 Tehtävät 6.1-6.4  
 alkuluku.py on oma ohjelma, jolla pyrin löytämään alkulukuja
 
+## mod07
+
+Funktiot  
+Tehtävät 7.1-7.6
+
 ## peliprojekti
 
-Ensimmäinen projektityö (tekstipohjainen seikkailupeli)  
-Erillinen readme
+Kurssin projektityö (tekstipohjainen seikkailupeli)  
+Erillinen readme kansion sisällä
