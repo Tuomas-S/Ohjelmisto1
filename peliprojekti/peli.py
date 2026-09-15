@@ -1,32 +1,15 @@
-import random
-import sys
+import profiili
 
-nimi = input("Nimi: ")
-ikä = input("Ikä: ")
+profiili.nimi = profiili.nimi_lisää()
+profiili.ikä = profiili.ikä_lisää()
 
-# Kokeilee onko ikä kokonaisluku
-while True:
-    try:
-        int(ikä)
-    except ValueError:
-        ikä = input("\nAnna oikea ikä:\n")
-    else:
-        break
-
-ikä = int(ikä)
-if ikä < 12:
-    print(nimi,"olet alaikäinen, nähdään", 12 - ikä, "vuoden päästä :-)")
-    sys.exit()
-else:
-    print("\nTervetuloa, " + nimi + "!")
-
-valinta = 0
+valinta = True
 while valinta != "lopeta":
-    valinta = input('\nKirjoita "lopeta" poistuaksesi.\n1 Kerro vitsi.\n2 Anna satunnaisluku [1, 10].\n3 Muuta nimeä.\n\n')
+    print("\n\n(1) Lisää esine reppuun.\n(2) Avaa reppu.\n(3) Muuta nimeä.\n")
+    valinta = input("Valitse toiminto: ")
     if valinta == "1":
-        print("\nEn jaksa.")
+        profiili.inv_lisää()
     elif valinta == "2":
-        print("\nSatunnaislukusi on " + str(random.randint(1,10)))
+        profiili.inv_näytä()
     elif valinta == "3":
-        nimi = input("\nNykyinen nimesi: " + nimi + "\nAnna uusi nimi: ")
-        print("\nUusi nimesi on " + nimi + ".")
+        profiili.nimi_muuta(profiili.nimi)
