@@ -5,11 +5,11 @@ inventaario = []
 
 def inv_lisää():
     inventaario.append(input("\nAnna esineelle nimi: "))
-    return inventaario
+    return
 
 def inv_näytä():
     if inventaario == []:
-        print("\nReppusi on tyhjä")
+        print("\nReppusi on tyhjä. Täältä näet löytämäsi esineet.")
     else:
         print("\nRepussasi on\n")
         for i in inventaario:
@@ -41,7 +41,7 @@ def ikä_lisää():
         print(f"\nTervetuloa, {nimi}!")
     return ikä
 
-def nimi_muuta(nimi_new):
-    print(f"\nNykyinen nimesi: {nimi_new}")
-    nimi_new = input("Anna uusi nimi: ")
-    return nimi_new
+def nimi_muuta(nimi_vanha):
+    print(f"\nNykyinen nimesi: {nimi_vanha}")
+    nimi_uusi = input("Anna uusi nimi: ")
+    return nimi_uusi
