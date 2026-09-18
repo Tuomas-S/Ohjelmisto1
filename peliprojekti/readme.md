@@ -4,6 +4,3 @@
 
 ## peli.py
 Pääohjelma jossa peli pyörii
-
-## profiili.py
-Inventaarion ja pelaajan tiedot

@@ -38,6 +38,15 @@ alkuluku.py on oma ohjelma, jolla pyrin löytämään alkulukuja
 Funktiot  
 Tehtävät 7.1-7.6
 
+## mod08
+
+.
+
+## mod09
+
+Luokka, olio ja alustaja  
+Tehtävät 9.1-9.4
+
 ## peliprojekti
 
 Kurssin projektityö (tekstipohjainen seikkailupeli)  

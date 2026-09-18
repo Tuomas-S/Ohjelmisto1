@@ -1,0 +1,32 @@
+Pelaajan tulee rakentaa uusi koulu pieneen kylään.
+Vaihtoehtoja rakennuspaikalle ovat keskusta ja kylän reuna-alue
+    Pelaaja valitsee kylän keskustan
+    Koulun rakentaminen ylittää budjetin
+    Löydät lapun jossa on koodi
+    Rakennushankkeesi epäonnistuu ja joudut vaihtamaan suunnitelmaasi, kysytään uudestaan rakennuspaikan sijaintia
+
+Pelaaja valitsee kylän reunustan
+Matkalla on mahdollista löytää hylätty työmaa jos pelaaja valitsee mennä metsään
+    Työmaalta löytyy paljon resursseja
+    Tarvitset kottikärryt resurssien siirtämiseen
+    pelaaja ohjataan pois kohti kylän reunustaa
+
+Pelaaja päätyy kylän reunustaan
+Rakennustyö on edullista mutta resursseja ei ole
+Käyt ostamassa työvälineet ja resurssit (mm. kottikärryt) (player.can_carry = True)
+Matkalla törmäät kirjavarastoon
+    Jos pelaaja syöttää koodin, hän pääsee kirjavarastoon
+    Pelaaja kerää kirjat talteen
+
+Pelaaja palaa takaisin työmaalle ja häneltä kysytään uudestaan haluaako hän mennä metsään
+    Pelaaja käy metsässä ja kerää nyt resurssit kottikärryillä
+
+Pelaaja palaa työmaalle ja rakentaa koulun.
+    Jos mukana on kirjoja, budjetti riittää ruokalan rakentamiseen
+    Jos mukana on työmaalta löydettyjä materiaaleja, budjetti riittää useamman luokkahuoneen rakentamiseen
+
+Kirjojen tai resurssien puuttuessa peli ilmoittaa ettei rahat riitä kaikkien tilojen rakentamiseen
+Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
+    (1/3): Koulu avataan, mutta kyläläiset valittavat tilojen, sekä ruokalan puutteesta
+    (2/3): Koulu avataan, mutta kyläläiset valittavat tilojen/ruokalan puutteesta
+    (3/3): Koulu avataan ja kyläläiset ovat tyytyväisiä tiloihin sekä maistuvaan ruokaan
