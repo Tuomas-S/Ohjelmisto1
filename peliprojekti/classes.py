@@ -2,72 +2,79 @@ import time
 import random
 #import game
 import description
+split = "_  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _\n"
 
 class item:
-    def __init__(self, name, desc, used, used_in, is_heavy = True):
+    def __init__(self, name, desc, used, used_in = None, is_heavy = False):
         self.name = name # esineen nimi
-        self.desc = desc # esineen kuvaus (voi sisältää esim koodin)
+        self.desc = desc # esineen kuvaus
         self.used = used # tuloste käytön jälkeen
         self.used_in = used_in # missä käytetään
         self.is_heavy = is_heavy # voiko esineen ottaa vain apuvälineen kanssa
         
 class room:
-    def __init__(self, name, enter, item = None):
+    def __init__(self, name, enter, access_to = [], item = None):
         self.name = name # huoneen nimi
         self.enter = enter # Tämä tulostuu kun siirryt huoneeseen
-        self.item = item # huoneessa sijaitseva esine
+        self.access_to = access_to # lista paikoista mihin tästä huoneesta pääsee
+        self.item = item # sijainnissa oleva esine
 
 class user:
-    def __init__(self, name, age, room, inventory = [], can_carry = False):
+    def __init__(self, name, age, location, inventory = [], can_carry = False):
         self.name = name # pelaajan asettama nimi
         self.age = age # pelaajan asettama ikä
         self.inventory = inventory # inventaario (lista)
-        self.room = room # nykyinen huone
+        self.location = location # nykyinen sijainti
         self.can_carry = can_carry # voiko lisätä painavia esineitä inventaarioon (True/False)
 
     def name_change(self, name_current):
         print(f"\nNykyinen nimesi: {name_current}")
         self.name = input("Anna uusi nimi: ")
 
-    def move(self, room):
-        choice = input(f"Siirrytäänkö huoneeseen {room.name}? (kyllä/ei)\n")
-        while True:
-            if choice == "kyllä" or choice == "Kyllä":
-                self.room = room
-                print(room.enter)
-                break
-            elif choice == "ei" or choice == "Ei":
-                print("Palataan takaisin.")
-                break
-            else:
-                choice = input("Vastaa kyllä/ei: ")
+    def move(self, location):
+        print(f"Siirrytään huoneeseen [{location.name}].")
+        self.location = location
 
-    def search(self, room):
+    def search(self, location):
         print("Tutkitaan aluetta...")
-        time.sleep(random.randint(2,5))
-        if room.item != None:
-            if room.item.is_heavy == True and player.can_carry == False:
-                print(f"Löysit esineen [{room.item.name}], mutta se on liian raskas kannettavaksi. Tarvitset kottikärryt.")
+        time.sleep(random.randint(1,3))
+        if location.item != None:
+            if location.item.is_heavy == True and self.can_carry == False:
+                print(f"Löysit esineen [{location.item.name}], mutta se on liian raskas kannettavaksi. Tarvitset kottikärryt.")
             else:
-                print(f"Löysit esineen [{room.item.name}], lisätään se inventaarioosi")
-                player.inventory.append(room.item)
-                player.room.item = None
+                print(f"Löysit esineen [{location.item.name}], lisätään se inventaarioosi")
+                self.inventory.append(location.item)
+                self.location.item = None
         else:
             print("Et löytänyt huoneesta mitään.")
 
-
     def inv_show(self):
         if self.inventory == []:
-            print("\nReppusi on tyhjä. Täältä näet löytämäsi esineet.")
+            print(f"{split} \nReppusi on tyhjä. Täältä näet löytämäsi esineet.")
         else:
-            print("\nRepussasi on\n")
+            print(f"{split} \nRepussasi on:")
             for item in self.inventory:
                 print(f"- {item.name}")
+            choice = input("\n[enter] = takaisin \nKirjoita esineen nimi tutkiaksesi sitä: ")
+            while choice != "":
+                for item in self.inventory:
+                    if item.name.lower() == choice.lower():
+                        print("Tutkitaan esinettä...")
+                        time.sleep(random.randint(1, 3))
+                        print(f"\n{item.desc}")
+                        input("Paina [enter] jatkaaksesi. ")
+                        break
+                else:
+                    input(f"{split} \nEsinettä ei löytynyt. \nPaina [enter] jatkaakesesi. ")
+                print(f"{split} \nRepussasi on:")
+                for item in self.inventory:
+                    print(f"- {item.name}")
+                choice = input("\n[enter] = takaisin \nKirjoita esineen nimi tutkiaksesi sitä: ")
 
     def item_use(self, item):
-        if item.used_in == player.room:
+        if item.used_in == self.location:
             print(item.used)
-            player.inventory.remove(item)
+            self.inventory.remove(item)
         else:
             print("Hmm... Et voi käyttää esinettä juuri nyt.")
 
@@ -75,9 +82,9 @@ class user:
 
 lappu = item
 kärryt = item
-resurssit = item
+materiaalit = item
 työkalut = item
-kirjat = item
+kirjat = item("Kirjoi", "Jotain paskaa luettavaa vaan", "Käytit kirjoja")
 keskusta = room("Keskusta", "Saavut keskustaan")
 romu = item("Romu", "Sälää", "Käytit romun", keskusta)
 
@@ -91,22 +98,9 @@ kirjavarasto = room
 #player = user(game.name, game.age, start)
 player = user("Pena", 16, start)
 
-print("\nTutkit huonetta ilman kottikärryjä:")
-player.search(start)
 
-player.can_carry = True
-print("\nTutkit huonetta ja sinulla on kottikärryt:")
-player.search(start)
-
-print("\nTutkit huonetta lisää")
-player.search(start)
-
-print("\nKoitat käyttää romua (Romua ei voi käyttää huoneessa start)")
-player.item_use(romu)
-player.inv_show()
-
-player.room = keskusta
-print(f"\nNykyinen huoneesi on {player.room.name}, koitat käyttää romua uudestaan")
-player.item_use(romu)
+player.inventory.append(romu)
+player.inventory.append(kirjat)
+print(player.inventory)
 player.inv_show()
 
