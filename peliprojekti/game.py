@@ -32,11 +32,7 @@ else:
 
 # Tähän intro.txt
 
-input("Aloita peli painamalla enter")
-
-classes.player.move(classes.kirjasto)
-print(classes.player.room.desc)
-classes.player.pickup(classes.kivi)
+input("Aloita peli painamalla enter. ")
 
 # while True:
 #     print("\n1. Lisää esine reppuun.\n2. Avaa reppu.\n3. Muuta nimeä.\n")

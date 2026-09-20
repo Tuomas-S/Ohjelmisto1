@@ -30,3 +30,14 @@ Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
     (1/3): Koulu avataan, mutta kyläläiset valittavat tilojen, sekä ruokalan puutteesta
     (2/3): Koulu avataan, mutta kyläläiset valittavat tilojen/ruokalan puutteesta
     (3/3): Koulu avataan ja kyläläiset ovat tyytyväisiä tiloihin sekä maistuvaan ruokaan
+
+
+Pelin kartta koska oli tylsää :3
+
+   ╭── [ Keskusta ] ──┬── [ Koti ]
+   │        │         │       │
+[ Kuja ]    │         ╰── [ Metsä ] ───╮
+   │        │                 │        │
+   │    [ Kauppa ]            │    [ Raunio ]
+   │                          │        │
+   ╰─ [ ??? ]             [ Aukio ] ───╯
