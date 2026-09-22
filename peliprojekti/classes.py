@@ -137,9 +137,3 @@ koti.connections = [keskusta]
 koti.accepts_item = [kartta, kirjat]
 kauppa.connections = [keskusta]
 kauppa.accepts_item = [kartta]
-
-player = User("Pena", 16, koti)
-player.inventory = []
-
-while True:
-    player.menu("Kokeile toimiiko")
