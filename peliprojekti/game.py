@@ -15,7 +15,7 @@ if age < 12:
     exit()
 else:
     print(f"\n  Tervetuloa {name}!")
-    player = user(name, age, koti)
+    player = User(name, age, koti)
     player.inventory = []
 input("  [enter] = aloita peli ")
 
@@ -27,7 +27,6 @@ while kirjat not in player.inventory:
     player.menu(mission_current)
 mission_current = "Palaa kotiin lukemaan"
 input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
-
 
 while kirjat.is_used == False:
     player.menu(mission_current)

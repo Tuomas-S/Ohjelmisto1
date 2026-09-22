@@ -86,3 +86,14 @@ Pelin kartta koska oli tylsää :3
   [enter] = peruuta 
 
   Valitse toiminto: sulje
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▶
+
+╭───────────────────────────────────────╮
+│ Inventaariosi on tyhjä.               │
+│ Täältä näet löytämäsi esineet.        │
+╰───────────────────────────────────────╯
+
+[enter] = takaisin 
+
+Valitse toiminto: 
