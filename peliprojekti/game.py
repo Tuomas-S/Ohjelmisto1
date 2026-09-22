@@ -25,10 +25,19 @@ mission_current = "Löydä itsellesi luettavaa"
 
 while kirjat not in player.inventory:
     player.menu(mission_current)
+    if työkalut in player.inventory and työkalut.is_used == False:
+        input("\n» No nyt kun kerran ostit työkaluja saat luvan \n  rakentaa jotain hienoa. ")
+        mission_current = "Rakenna jotain siistiä"
+        while työkalut.is_used == False:
+            player.menu(mission_current)
+        keskusta.accepts_item.remove(työkalut)
+        mission_current = "Löydä itsellesi luettavaa"
+        input("\n» Olipa urakka.. Tällä kertaa kannattaa oikeasti \n  löytää sitä luettavaa. ")
 mission_current = "Palaa kotiin lukemaan"
 input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
 
 while kirjat.is_used == False:
     player.menu(mission_current)
-input(f"{split} \n» Ai että nyt on vihdoin hyvä aika ottaa rennosti. \n  Nappaat kirjan käteen ja vietät loppupäivän lukemisen parissa. ")
+input("\n» Se siitä kirjojen lukemisesta... \n  Viet kirjat varastoon ja painut takaisin pehkuihin. ")
 input("\n  Voitit pelin!!") 
+

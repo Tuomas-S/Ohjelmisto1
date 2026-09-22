@@ -11,7 +11,7 @@ työkalut_success = "» Nikkaroit keskustaan yhen talon. Aika siistii!"
 #item use denied
 kartta_fail = "» Miten tämä on edes mahdollista?!"
 kirjat_fail = "» Kotona sitten luetaan. Nyt ei ole aikaa sille..."
-työkalut_fail = "» Tänne ei kannata rakentaa yhtään mitään tai voi tulla sanomista."
+työkalut_fail = "» Et voi rakentaa tähän. "
 
 #location searched
 koti_search = "» Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä \n  takaisin nukkumaan, mutta sinulla riittää vielä tekemistä."

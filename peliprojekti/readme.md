@@ -1,4 +1,4 @@
-# [Pelin nimi tähän]
+# Oppimattomat
 
 **Tuomas Soini**
 

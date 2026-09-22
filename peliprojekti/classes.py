@@ -5,12 +5,12 @@ import random
 from descriptions import *
 
 class Item:
-    def __init__(self, name, item_found, use_success, use_fail, single_use = False, is_used = False):
+    def __init__(self, name, item_found, use_success, use_fail, is_single_use, is_used = False):
         self.name = name # esineen nimi
         self.item_found = item_found # tämä tulostuu esineen löytyessä
         self.use_success = use_success # tämä tulostuu kun esinettä käytetään
         self.use_fail = use_fail # tämä tulostuu kun esinettä ei voi käyttää
-        self.single_use = single_use # onko esine kertakäyttöinen
+        self.is_single_use = is_single_use # onko esine kertakäyttöinen
         self.is_used = is_used # onko pelaaja käyttänyt esineen
         
 class Location:
@@ -67,7 +67,7 @@ class User:
                     time.sleep(random.randrange(1, 3))
                     input(f"{split} \n{item.use_success} ")
                     item.is_used = True
-                    if item.single_use == True:
+                    if item.is_single_use == True:
                         self.inventory.remove(item)
                     return(True)
                 else:
@@ -116,11 +116,11 @@ class User:
             input(f"{split} \n  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero. ")
 
 # Luodaan esineet, huoneet ja pelaaja
-kartta = Item("Kartta", kartta_found, kartta_success, kartta_fail)
+kartta = Item("Kartta", kartta_found, kartta_success, kartta_fail, False)
 kirjat = Item("Kirjat", kirjat_found, kirjat_success, kirjat_fail, True)
 romu = Item
 kärryt = Item
-työkalut = Item("Työkalut", työkalut_found, työkalut_success, työkalut_fail, True)
+työkalut = Item("Työkalut", työkalut_found, työkalut_success, työkalut_fail, False)
 
 
 koti = Location("Koti", koti_search, kartta)
