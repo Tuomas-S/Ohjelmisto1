@@ -6,9 +6,6 @@
 Luokat ja oliot löytyvät täältä  
 Luokkien sisäiset funktiot
 
-## descriptions.py
-Esineiden ja sijaintien eri kuvauksia kommentteineen
-
 ## game.py
 Pääohjelma jossa peli pyörii (Tarina on tällä hetkellä väliaikainen)
 

@@ -2,7 +2,6 @@ split = "\n━━━━━━━━━━━━━━━━━━━━━━━
 
 import time
 import random
-from descriptions import *
 
 class Item:
     def __init__(self, name, item_found, use_success, use_fail, is_single_use, is_used = False):
@@ -116,16 +115,16 @@ class User:
             input(f"{split} \n  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero. ")
 
 # Luodaan esineet, huoneet ja pelaaja
-kartta = Item("Kartta", kartta_found, kartta_success, kartta_fail, False)
-kirjat = Item("Kirjat", kirjat_found, kirjat_success, kirjat_fail, True)
+kartta = Item("Kartta", "» Löysit kartan. Tästä voi olla paljon hyötyä.", "╭───────────────════════════════════───────═════╗ \n│           皿  ⌂ ⌂                         ^   ║ \n║    ╭╌╌ [ Keskusta ] ──┬── [ Koti ]        N   ║ \n║    ┆        ║ ⌂⌂      │       ┆              ─╢ \n│ [ Kuja ]  ⌂ ║         ╰── [ Metsä ] ╌╌╌╮      │ \n│    ┆        ║              ♣Ψ │ ♣      ┆      │ \n║    ┆    [ Kauppa ]          ♣ │    [ Raunio ] ║ \n╠═   ┆                          │ Ψ      ┆      ║ \n║    ╰╌ [ ??? ] † †        [ Niitty ] ╌╌╌╯      ║ \n║                †      ▲▲              ~~~     │ \n╚═════════─────════════─────────────────────────╯ \n\n» Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.", "» Miten tämä on edes mahdollista?!", False)
+kirjat = Item("Kirjat", "» Löysit kadun nurkassa olevasta laatikosta muutaman kirjan. \n  Historiaa, pokkareita, kauhua ja muuta jännää.", "» Luet kirjoja. Pettymykseksesi ne ovat kirjoitettu hepreaksi. \n  Suljet kirjat ja päätät tehdä tehdä jotain muuta.", "» Kotona sitten luetaan. Nyt ei ole aikaa sille...", True)
 romu = Item
 kärryt = Item
-työkalut = Item("Työkalut", työkalut_found, työkalut_success, työkalut_fail, False)
+työkalut = Item("Työkalut", "» Ostat työvälineitä, lautaa sekä kottikärryt. \n  Voit kantaa nyt raskaita esineitä.", "» Nikkaroit keskustaan yhen talon. Aika siistii!", "» Et voi rakentaa tähän. ", False)
 
 
-koti = Location("Koti", koti_search, kartta)
-keskusta = Location("Keskusta", keskusta_search, kirjat)
-kauppa = Location("Kauppa", kauppa_search, työkalut)
+koti = Location("Koti", "» Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä \n  takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.", kartta)
+keskusta = Location("Keskusta", "» Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin \n  ajastasi luonnossa. No... Ei voi mitään.", kirjat)
+kauppa = Location("Kauppa", "» Kaupan hyllyt ovat täynnä rakennusmateriaaleja \n  ja työkaluja. Juttelet hetken kauppiaan kanssa.", työkalut)
 metsä = Location
 raunio = Location
 niitty = Location
