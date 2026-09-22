@@ -34,10 +34,55 @@ Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
 
 Pelin kartta koska oli tylsää :3
 
-   ╭── [ Keskusta ] ──┬── [ Koti ]
-   │        │         │       │
-[ Kuja ]    │         ╰── [ Metsä ] ───╮
-   │        │                 │        │
-   │    [ Kauppa ]            │    [ Raunio ]
-   │                          │        │
-   ╰─ [ ??? ]             [ Aukio ] ───╯
+╭───────────────════════════════════════════════╗
+┃           皿  ⌂ ⌂                         ^   ║
+║    ╭╌╌ [ Keskusta ] ──┬── [ Koti ]        N   ║
+║    ┆        ║ ⌂⌂      │       ┆               ║
+= [ Kuja ]  ⌂ ║         ╰── [ Metsä ] ╌╌╌╮      ┃
+║    ┆        ║              ♣Ψ │ ♣      ┆      ┃
+║    ┆    [ Kauppa ]          ♣ │    [ Raunio ] ║ 
+╠━   ┆                          │ Ψ      ┆      ╢
+┃    ╰╌ [ ??? ] † †        [ Niitty ] ╌╌╌╯      ║
+┃                †     ▲▲              ~~~      ┃
+╚═════════─────════════─────────────────────────╯
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▶
+
+╭─────────────────────────────────────────╮
+│ Inventaariossasi on:                    │
+│ » Kartta                                │
+│ » Kirjoja                               │
+│ » Lompakko                              │
+╰─────────────────────────────────────────╯ 
+
+  Käytä esine kirjoittamalla sen nimi. 
+  [enter] = takaisin 
+
+  Valitse toiminto: 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▶
+
+╭─────────────────────────────────────────────╮
+│  Voit siirtyä seuraaviin paikkoihin:        │
+│  » Keskusta                                 │
+│  » Metsä                                    │
+│  » Niitty                                   │
+│  » Kuja                                     │
+╰─────────────────────────────────────────────╯
+
+  Siirry paikkaan kirjoittamalla sen nimi. 
+  [enter] = takaisin 
+
+  Valitse toiminto:
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▶
+
+╭─────────────────────────────────────────╮
+│ Suljetaako peli?                        │
+╰─────────────────────────────────────────╯
+
+  Kirjoita "kyllä" sulkeaksesi pelin.
+  [enter] = peruuta 
+
+  Valitse toiminto: sulje

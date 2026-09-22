@@ -1,47 +1,35 @@
-import time
-import classes
+from classes import *
 
-# while True:
-#     print("\n1. Lisää esine reppuun.\n2. Avaa reppu.\n3. Muuta nimeä.\n")
-#     choice = input("Valitse toiminto (1-3) tai kirjoita exit lopettaaksesi: ")
-#     if choice == "1":
-#         inv_add()
-#     elif choice == "2":
-#         inv_show()
-#     elif choice == "3":
-#         player.name = name_change(player.name)
-#     elif choice == "exit":
-#         exit()
-
-name = input("Nimi: ")
-age = input("Ikä: ")
+name = input(f"{split} \n  Nimi: ")
+age = input("  Ikä: ")
 while True:
     try:
         int(age)
     except ValueError:
-        age = input("\nAnna oikea ikä:\n")
+        age = input("  Anna oikea ikä: ")
     else:
         break
 age = int(age)
 if age < 12:
-    print("\nOlet alaikäinen, suljetaan sovellus...")
-    time.sleep(3)
+    input("\n  Olet alaikäinen, suljetaan sovellus...")
     exit()
 else:
-    print(f"\nTervetuloa {name}!")
+    print(f"\n  Tervetuloa {name}!")
+    player = user(name, age, koti)
+    player.inventory = []
+input("  [enter] = aloita peli ")
 
-# Tähän intro.txt
+# Tähän intro.txt, seuraava rakenne on väliaikainen
+input(f"{split} \n» On vapaapäivä. Olet juonut aamukahvisi ja koitat löytää \n  itsellesi tekemistä. Jo pitkään olet halunnut lukea jonkun kirjan. \n  Nykyään kun kaikki aika vietetään vain näytön äärellä koet, \n  että lukeminen tekisi aivoille hyvää. Lähdet etsimään itsellesi luettavaa. \n\n  [enter] = jatka ")
+mission_current = "Löydä itsellesi luettavaa"
 
-input("Aloita peli painamalla enter. ")
+while kirjat not in player.inventory:
+    player.menu(mission_current)
+mission_current = "Palaa kotiin lukemaan"
+input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
 
-# while True:
-#     print("\n1. Lisää esine reppuun.\n2. Avaa reppu.\n3. Muuta nimeä.\n")
-#     choice = input("Valitse toiminto (1-3) tai kirjoita exit lopettaaksesi: ")
-#     if choice == "1":
-#         inv_add()
-#     elif choice == "2":
-#         inv_show()
-#     elif choice == "3":
-#         player.name = name_change(player.name)
-#     elif choice == "exit":
-#         exit()
+
+while kirjat.is_used == False:
+    player.menu(mission_current)
+input(f"{split} \n» Ai että nyt on vihdoin hyvä aika ottaa rennosti. \n  Nappaat kirjan käteen ja vietät loppupäivän lukemisen parissa. ")
+input("\n  Voitit pelin!!") 
