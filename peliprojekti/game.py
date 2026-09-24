@@ -1,4 +1,5 @@
 from classes import *
+from missions import *
 
 name = input(f"{split} \n  Nimi: ")
 age = input("  Ikä:  ")
@@ -15,31 +16,19 @@ if age < 12:
     exit()
 else:
     print(f"\n  Tervetuloa {name}!")
-    player = User(name, age, koti)
+    player = User(name, age, koti, "Pakkaa tavarasi mukaan")
     player.inventory = []
+
 input("  [enter] = aloita peli ")
-
 # Tähän intro.txt, seuraava rakenne on väliaikainen
-input(f"{split} \n» On vapaapäivä. Olet juonut aamukahvisi ja koitat löytää \n  itsellesi tekemistä. Jo pitkään olet halunnut lukea jonkun kirjan. \n  Nykyään kun kaikki aika vietetään vain näytön äärellä koet, \n  että lukeminen tekisi aivoille hyvää. Lähdet etsimään itsellesi luettavaa. \n\n  [enter] = jatka ")
+input(f"{split} \n{format("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä. ")}")
 
-missionCurrent = "Löydä itsellesi luettavaa"
-while kirjat not in player.inventory:
-    player.menu(missionCurrent)
-    if työkalut in player.inventory and keskusta not in työkalut.usedIn:
-        input("\n» No nyt kun kerran ostit työkaluja saat luvan \n  rakentaa jotain hienoa. ")
-        missionCurrent = "Rakenna jotain siistiä"
-        koti.isLocked = kauppa.isLocked = True
-        while keskusta not in työkalut.usedIn:
-            player.menu(missionCurrent)
-        missionCurrent = "Löydä itsellesi luettavaa"
-        input("\n» Olipa urakka.. Tällä kertaa kannattaa oikeasti \n  löytää sitä luettavaa. ")
-        koti.isLocked = False
-input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
+while player.status == "Pakkaa tavarasi mukaan":
+    player.status = tutorial(player)
 
-missionCurrent = "Lue kirjoja"
-keskusta.isLocked = kauppa.isLocked = True
-while koti not in kirjat.usedIn:
-    player.menu(missionCurrent)
-input("\n» Viet kirjat varastoon ja painut takaisin nukkumaan. ")
-input("\n  Voitit pelin!!") 
+while player.status == "Tutoriaali valmis":
+    player.status = building_spot(player)
 
+input(player.status)
+while True:
+    player.menu("Testaile")
