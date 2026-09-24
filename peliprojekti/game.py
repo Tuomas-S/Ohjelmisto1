@@ -22,24 +22,24 @@ input("  [enter] = aloita peli ")
 # Tähän intro.txt, seuraava rakenne on väliaikainen
 input(f"{split} \n» On vapaapäivä. Olet juonut aamukahvisi ja koitat löytää \n  itsellesi tekemistä. Jo pitkään olet halunnut lukea jonkun kirjan. \n  Nykyään kun kaikki aika vietetään vain näytön äärellä koet, \n  että lukeminen tekisi aivoille hyvää. Lähdet etsimään itsellesi luettavaa. \n\n  [enter] = jatka ")
 
-mission_current = "Löydä itsellesi luettavaa"
+missionCurrent = "Löydä itsellesi luettavaa"
 while kirjat not in player.inventory:
-    player.menu(mission_current)
-    if työkalut in player.inventory and keskusta not in työkalut.used_in:
+    player.menu(missionCurrent)
+    if työkalut in player.inventory and keskusta not in työkalut.usedIn:
         input("\n» No nyt kun kerran ostit työkaluja saat luvan \n  rakentaa jotain hienoa. ")
-        mission_current = "Rakenna jotain siistiä"
-        koti.is_locked = kauppa.is_locked = True
-        while keskusta not in työkalut.used_in:
-            player.menu(mission_current)
-        mission_current = "Löydä itsellesi luettavaa"
+        missionCurrent = "Rakenna jotain siistiä"
+        koti.isLocked = kauppa.isLocked = True
+        while keskusta not in työkalut.usedIn:
+            player.menu(missionCurrent)
+        missionCurrent = "Löydä itsellesi luettavaa"
         input("\n» Olipa urakka.. Tällä kertaa kannattaa oikeasti \n  löytää sitä luettavaa. ")
-        koti.is_locked = False
+        koti.isLocked = False
 input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
 
-mission_current = "Lue kirjoja"
-keskusta.is_locked = kauppa.is_locked = True
-while koti not in kirjat.used_in:
-    player.menu(mission_current)
+missionCurrent = "Lue kirjoja"
+keskusta.isLocked = kauppa.isLocked = True
+while koti not in kirjat.usedIn:
+    player.menu(missionCurrent)
 input("\n» Viet kirjat varastoon ja painut takaisin nukkumaan. ")
 input("\n  Voitit pelin!!") 
 
