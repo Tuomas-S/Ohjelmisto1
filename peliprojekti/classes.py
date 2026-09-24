@@ -4,18 +4,25 @@ import time
 import random
 
 class Item:
-    def __init__(self, name, item_found, use_success, use_fail, is_single_use, is_used = False):
+    def __init__(self, name, item_found, use_text):
         self.name = name # esineen nimi
         self.item_found = item_found # tämä tulostuu esineen löytyessä
-        self.use_success = use_success # tämä tulostuu kun esinettä käytetään
+        self.use_text = use_text # tämä tulostuu kun esinettä käytetään
+
+class Functional(Item):
+    def __init__(self, name, item_found, use_text, use_fail, is_single_use, used_in = None):
+        super().__init__(name, item_found, use_text)
         self.use_fail = use_fail # tämä tulostuu kun esinettä ei voi käyttää
         self.is_single_use = is_single_use # onko esine kertakäyttöinen
-        self.is_used = is_used # onko pelaaja käyttänyt esineen
+        self.used_in = used_in # missä sijainnissa esine on käytetty (lista)
+
         
 class Location:
-    def __init__(self, name, search_text, item = None, accepts_item = None, connections = None):
+    def __init__(self, name, search_text, is_locked, locked_text, item = None, accepts_item = None, connections = None):
         self.name = name # sijainnin nimi
         self.search_text = search_text # tämä tulostetaan kun sijaintia tutkitaan
+        self.is_locked = is_locked # onko pelaajalla pääsyä sijaintiin vai ei
+        self.locked_text = locked_text # tämä tulostuu jos koitetaan siirtyä lukittuun sijaintiin
         self.item = item # sijainnista löytyvä esine
         self.accepts_item = accepts_item # mitä esinettä sijainnissa voi käyttää
         self.connections = connections # lista paikoista mihin tästä sijainnista pääsee
@@ -40,6 +47,9 @@ class User:
             else:
                 for location in move_to.connections:
                     if choice.lower() == location.name.lower():
+                        if location.is_locked:
+                            input(f"{split} \n{location.locked_text} ")
+                            break
                         print("  Siirrytään...")
                         time.sleep(random.randrange(1, 3))
                         self.location = location
@@ -61,19 +71,26 @@ class User:
     def item_use(self, choice):
         for item in self.inventory:
             if choice.lower() == item.name.lower():
-                if item in self.location.accepts_item:
-                    print("  Käytetään esine...")
-                    time.sleep(random.randrange(1, 3))
-                    input(f"{split} \n{item.use_success} ")
-                    item.is_used = True
-                    if item.is_single_use == True:
-                        self.inventory.remove(item)
-                    return(True)
+                if isinstance(item, Functional):
+                    if item in self.location.accepts_item:
+                        if item.used_in == self.location:
+                            input(f"{split} \n  Olet jo käyttänyt esineen tässä paikassa. ")
+                            return(False)
+                        print("  Käytetään esine...")
+                        time.sleep(random.randrange(1, 3))
+                        input(f"{split} \n{item.use_text} ")
+                        item.used_in.append(self.location)
+                        if item.is_single_use:
+                            self.inventory.remove(item)
+                        return(True)
+                    else:
+                        input(f"{split} \n{item.use_fail} ")
+                        return(False)
                 else:
                     print("  Käytetään esine...")
                     time.sleep(random.randrange(1, 3))
-                    input(f"{split} \n{item.use_fail} ")
-                    return(False)
+                    input(f"{split} \n{item.use_text} ")
+                    return(True)
         else:
             input(f"{split} \n  Esinettä ei löytynyt inventaariostasi. ")
             return(False)
@@ -115,16 +132,18 @@ class User:
             input(f"{split} \n  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero. ")
 
 # Luodaan esineet, huoneet ja pelaaja
-kartta = Item("Kartta", "» Löysit kartan. Tästä voi olla paljon hyötyä.", "╭───────────────════════════════════───────═════╗ \n│           皿  ⌂ ⌂                         ^   ║ \n║    ╭╌╌ [ Keskusta ] ──┬── [ Koti ]        N   ║ \n║    ┆        ║ ⌂⌂      │       ┆              ─╢ \n│ [ Kuja ]  ⌂ ║         ╰── [ Metsä ] ╌╌╌╮      │ \n│    ┆        ║              ♣Ψ │ ♣      ┆      │ \n║    ┆    [ Kauppa ]          ♣ │    [ Raunio ] ║ \n╠═   ┆                          │ Ψ      ┆      ║ \n║    ╰╌ [ ??? ] † †        [ Niitty ] ╌╌╌╯      ║ \n║                †      ▲▲              ~~~     │ \n╚═════════─────════════─────────────────────────╯ \n\n» Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.", "» Miten tämä on edes mahdollista?!", False)
-kirjat = Item("Kirjat", "» Löysit kadun nurkassa olevasta laatikosta muutaman kirjan. \n  Historiaa, pokkareita, kauhua ja muuta jännää.", "» Luet kirjoja. Pettymykseksesi ne ovat kirjoitettu hepreaksi. \n  Suljet kirjat ja päätät tehdä tehdä jotain muuta.", "» Kotona sitten luetaan. Nyt ei ole aikaa sille...", True)
-romu = Item
+kartta = Item("Kartta", "» Löysit kartan. Tästä voi olla paljon hyötyä.", "╭───────────────════════════════════───────═════╗ \n│           皿  ⌂ ⌂                         ^   ║ \n║    ╭╌╌ [ Keskusta ] ──┬── [ Koti ]        N   ║ \n║    ┆        ║ ⌂⌂      │       ┆              ─╢ \n│ [ Kuja ]  ⌂ ║         ╰── [ Metsä ] ╌╌╌╮      │ \n│    ┆        ║              ♣Ψ │ ♣      ┆      │ \n║    ┆    [ Kauppa ]          ♣ │    [ Raunio ] ║ \n╠═   ┆                          │ Ψ      ┆      ║ \n║    ╰╌ [ ??? ] † †        [ Niitty ] ╌╌╌╯      ║ \n║                †      ▲▲              ~~~     │ \n╚═════════─────════════─────────────────────────╯ \n\n» Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.")
+kirjat = Functional("Kirjat", "» Löysit kadun nurkassa olevasta laatikosta muutaman kirjan. \n  Historiaa, pokkareita, kauhua ja muuta jännää.", "» Luet kirjoja. Pettymykseksesi ne ovat kirjoitettu hepreaksi. \n  Suljet kirjat ja päätät tehdä tehdä jotain muuta.", "» Kotona sitten luetaan. Nyt ei ole aikaa sille...", True)
+kirjat.used_in = []
+romu = Functional
 kärryt = Item
-työkalut = Item("Työkalut", "» Ostat työvälineitä, lautaa sekä kottikärryt. \n  Voit kantaa nyt raskaita esineitä.", "» Nikkaroit keskustaan yhen talon. Aika siistii!", "» Et voi rakentaa tähän. ", False)
+työkalut = Functional("Työkalut", "» Ostat työvälineitä, lautaa sekä kottikärryt. \n  Voit kantaa nyt raskaita esineitä.", "» Nikkaroit keskustaan yhen talon. Aika siistii!", "» Et voi rakentaa tähän.", False)
+työkalut.used_in = []
 
-
-koti = Location("Koti", "» Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä \n  takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.", kartta)
-keskusta = Location("Keskusta", "» Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin \n  ajastasi luonnossa. No... Ei voi mitään.", kirjat)
-kauppa = Location("Kauppa", "» Kaupan hyllyt ovat täynnä rakennusmateriaaleja \n  ja työkaluja. Juttelet hetken kauppiaan kanssa.", työkalut)
+#name, search_text, is_locked, locked_text, item = None, accepts_item = None, connections = None
+koti = Location("Koti", "» Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä \n  takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.", False, "» Et halua palata vielä kotiin, sillä sinulla on \n  vielä asioita hoidettavana.", kartta)
+keskusta = Location("Keskusta", "» Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin \n  ajastasi luonnossa. No... Ei voi mitään.", False, "» Nyt on jo niin myöhäistä ettet halua enää lähteä ulos.", kirjat)
+kauppa = Location("Kauppa", "» Kaupan hyllyt ovat täynnä rakennusmateriaaleja \n  ja työkaluja. Juttelet hetken kauppiaan kanssa.", False, "» Et tarvitse kaupasta enää mitään.", työkalut)
 metsä = Location
 raunio = Location
 niitty = Location

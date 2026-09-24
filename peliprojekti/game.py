@@ -1,7 +1,7 @@
 from classes import *
 
 name = input(f"{split} \n  Nimi: ")
-age = input("  Ikä: ")
+age = input("  Ikä:  ")
 while True:
     try:
         int(age)
@@ -25,19 +25,21 @@ input(f"{split} \n» On vapaapäivä. Olet juonut aamukahvisi ja koitat löytä�
 mission_current = "Löydä itsellesi luettavaa"
 while kirjat not in player.inventory:
     player.menu(mission_current)
-    if työkalut in player.inventory and työkalut.is_used == False:
+    if työkalut in player.inventory and keskusta not in työkalut.used_in:
         input("\n» No nyt kun kerran ostit työkaluja saat luvan \n  rakentaa jotain hienoa. ")
         mission_current = "Rakenna jotain siistiä"
-        while työkalut.is_used == False:
+        koti.is_locked = kauppa.is_locked = True
+        while keskusta not in työkalut.used_in:
             player.menu(mission_current)
-        keskusta.accepts_item.remove(työkalut)
         mission_current = "Löydä itsellesi luettavaa"
         input("\n» Olipa urakka.. Tällä kertaa kannattaa oikeasti \n  löytää sitä luettavaa. ")
+        koti.is_locked = False
 input("\n» Noniin, nyt on aika mennä takaisiin kotiin lukemaan. ")
 
-mission_current = "Palaa kotiin lukemaan"
-while kirjat.is_used == False:
+mission_current = "Lue kirjoja"
+keskusta.is_locked = kauppa.is_locked = True
+while koti not in kirjat.used_in:
     player.menu(mission_current)
-input("\n» Se siitä kirjojen lukemisesta... \n  Viet kirjat varastoon ja painut takaisin pehkuihin. ")
+input("\n» Viet kirjat varastoon ja painut takaisin nukkumaan. ")
 input("\n  Voitit pelin!!") 
 
