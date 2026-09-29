@@ -1,4 +1,4 @@
-# Oppimattomat (pelin nimi xd)
+# Koulun rakennus päivässä
 
 **Tuomas Soini**
 

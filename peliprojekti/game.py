@@ -32,13 +32,16 @@ while player.status == "Kaupunki valittu":
     player.status = get_tools(player)
 
 while player.status == "Pelto valittu":
-    player.status = clear_area(player)
+    player.status = clear_niitty(player)
 
 while player.status == "Lukossa kellarissa":
-    player.status = cellar_escape(player)
+    player.status = escape_cellar(player)
 
 while player.status == "Kauppaan ostoksille":
     player.status = buy_materials(player)
 
 while player.status == "Finaali":
     player.status = finale(player)
+
+while player.status == "Kotiin nukkumaan":
+    player.status = ending(player)

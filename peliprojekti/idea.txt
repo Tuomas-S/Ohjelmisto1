@@ -1,22 +1,4 @@
-Pelaaja valitsee metsän
-Matkalla on mahdollista löytää hylätty työmaa jos pelaaja valitsee mennä metsään
-    Työmaalta löytyy paljon resursseja
-    Tarvitset kottikärryt resurssien siirtämiseen
-    pelaaja ohjataan pois kohti kylän reunustaa
-
-Pelaaja päätyy niitylle
-Rakennustyö on edullista mutta resursseja ei ole
-Käyt ostamassa työvälineet ja resurssit (mm. kottikärryt)
-Matkalla törmäät kirjavarastoon
-    Jos pelaaja syöttää koodin, hän pääsee kirjavarastoon
-    Pelaaja kerää kirjat talteen
-  
-
 Pelaajan tulee siivota pelto ja tarvitsee tähän lapion sekä kottikärryt. Nämä löytyvät kotoasi
-
-Pelaaja palaa työmaalle ja rakentaa koulun.
-    Jos mukana on kirjoja, budjetti riittää ruokalan rakentamiseen
-    Jos mukana on työmaalta löydettyjä materiaaleja, budjetti riittää useamman luokkahuoneen rakentamiseen
 
 Kirjojen tai resurssien puuttuessa peli ilmoittaa ettei rahat riitä kaikkien tilojen rakentamiseen
 Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
@@ -27,18 +9,41 @@ Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
 
 Pelin kartta koska oli tylsää :3
 
-╭───────────────═══════════════════───────═════╗
-┃           皿  ⌂ ⌂              5         ^   ║
-║    ╭╌╌ [ Keskusta ] ──┬─ [ Koti ]        N   ║
-║    ┆      9 ║ ⌂⌂      │      ┆              ─╢
-= [ Kuja ]  ⌂ ║         ╰─ [ Metsä ] ╌╌╌╮      ┃
-║    ┆ 1      ║   2         ♣Ψ │ ♣      ┆ 4    ┃
-║    ┆    [ Kauppa ]         ♣ │    [ Raunio ] ║ 
-╠━   ┆                         │ Ψ      ┆      ║
-┃    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║
-┃                †    ▲▲      7        ~~~     ┃
-╚═════════─────════════────────────────────────╯
+╭───────────────══════════════════════════╗
+┃           皿  ⌂ ⌂              5    ^   ║
+║    ╭╌╌ [ Keskusta ] ──┬─ [ Koti ]   N   ║
+║    ┆      9 ║ ⌂⌂      │      ┆         ─╢
+= [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ]      ┃
+║    ┆ 1        ║  2       ♣ Ψ ┆     ♣    ┃
+║    ┆      [ Kauppa ]         ┆   Ψ      ║ 
+╠━   ┆                     [ Raunio ] Ψ   ║
+┃    ╰╌ [ ??? ] † †                       ║
+┃                †    ▲▲      7     ~~~   ┃
+╚═════════─────════════───────────────────╯
 
+» ╭───────────────═══════════════════───════╗ 
+  │           皿  ⌂ ⌂              5    ^   ║ 
+  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]   N   ║ 
+  ║    ┆      9 ║ ⌂⌂      │      ┆         ─╢ 
+  │ [ Kuja ]  ⌂ ║         ╰─ [ Metsä ]      │ 
+  │    ┆ 1      ║  2          ♣  ┆          │ 
+  ║    ┆    [ Kauppa ]           ┆          ║
+  ╠═   ┆                     [ Raunio ]     ║ 
+  ║    ╰╌ [ ??? ] † †             7   ♣     ║ 
+  ║                †      ▲▲           ~~~  │ 
+  ╚═════════─────════════───────────────────╯
+
+╭───────────────═══════════════════───────═════╗ 
+  │           皿  ⌂ ⌂              5         ^   ║ 
+  ║    ╭╌╌ [ Keskusta ] ──┬─ [ Koti ]        N   ║ 
+  ║    ┆      9 ║ ⌂⌂      │      ┆              ─╢ 
+  │ [ Kuja ]  ⌂ ║         ╰─ [ Metsä ] ╌╌╌╮      │ 
+  │    ┆ 1      ║  2         ♣Ψ │ ♣      ┆ 4     │ 
+  ║    ┆    [ Kauppa ]         ♣ │    [ Raunio ] ║ 
+  ╠═   ┆                         │ Ψ      ┆      ║ 
+  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║ 
+  ║                †      ▲▲      7      ~~~     │ 
+  ╚═════════─────════════────────────────────────╯ 
 Koti, Kauppa, Keskusta, Pelto, Kuja
 52971
 
