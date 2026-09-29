@@ -16,19 +16,29 @@ if age < 12:
     exit()
 else:
     print(f"\n  Tervetuloa {name}!")
-    player = User(name, age, koti, "Pakkaa tavarasi mukaan")
-    player.inventory = []
+    player = User(name, age, koti, "Tutoriaali", [])
 
 input("  [enter] = aloita peli ")
 # Tähän intro.txt, seuraava rakenne on väliaikainen
 input(f"{split} \n{format("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä. ")}")
 
-while player.status == "Pakkaa tavarasi mukaan":
+while player.status == "Tutoriaali":
     player.status = tutorial(player)
 
 while player.status == "Tutoriaali valmis":
     player.status = building_spot(player)
 
-input(player.status)
-while True:
-    player.menu("Testaile")
+while player.status == "Kaupunki valittu":
+    player.status = get_tools(player)
+
+while player.status == "Pelto valittu":
+    player.status = clear_area(player)
+
+while player.status == "Lukossa kellarissa":
+    player.status = cellar_escape(player)
+
+while player.status == "Kauppaan ostoksille":
+    player.status = buy_materials(player)
+
+while player.status == "Finaali":
+    player.status = finale(player)

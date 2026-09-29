@@ -1,4 +1,4 @@
-# Oppimattomat
+# Oppimattomat (pelin nimi xd)
 
 **Tuomas Soini**
 

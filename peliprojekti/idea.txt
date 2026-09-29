@@ -6,13 +6,13 @@ Matkalla on mahdollista löytää hylätty työmaa jos pelaaja valitsee mennä m
 
 Pelaaja päätyy niitylle
 Rakennustyö on edullista mutta resursseja ei ole
-Käyt ostamassa työvälineet ja resurssit (mm. kottikärryt) (player.can_carry = True)
+Käyt ostamassa työvälineet ja resurssit (mm. kottikärryt)
 Matkalla törmäät kirjavarastoon
     Jos pelaaja syöttää koodin, hän pääsee kirjavarastoon
     Pelaaja kerää kirjat talteen
+  
 
-Pelaaja palaa takaisin työmaalle ja häneltä kysytään uudestaan haluaako hän mennä metsään
-    Pelaaja käy metsässä ja kerää nyt resurssit kottikärryillä
+Pelaajan tulee siivota pelto ja tarvitsee tähän lapion sekä kottikärryt. Nämä löytyvät kotoasi
 
 Pelaaja palaa työmaalle ja rakentaa koulun.
     Jos mukana on kirjoja, budjetti riittää ruokalan rakentamiseen
@@ -28,16 +28,19 @@ Lopuksi koulu avataan ja tyytyväisyystaso kerrotaan yhdestä kolmeen.
 Pelin kartta koska oli tylsää :3
 
 ╭───────────────═══════════════════───────═════╗
-┃           皿  ⌂ ⌂                        ^   ║
+┃           皿  ⌂ ⌂              5         ^   ║
 ║    ╭╌╌ [ Keskusta ] ──┬─ [ Koti ]        N   ║
-║    ┆        ║ ⌂⌂      │      ┆              ─╢
+║    ┆      9 ║ ⌂⌂      │      ┆              ─╢
 = [ Kuja ]  ⌂ ║         ╰─ [ Metsä ] ╌╌╌╮      ┃
-║    ┆        ║             ♣Ψ │ ♣      ┆      ┃
+║    ┆ 1      ║   2         ♣Ψ │ ♣      ┆ 4    ┃
 ║    ┆    [ Kauppa ]         ♣ │    [ Raunio ] ║ 
 ╠━   ┆                         │ Ψ      ┆      ║
-┃    ╰╌ [ ??? ] † †        [ Niitty ] ╌╌╯      ║
-┃                †    ▲▲               ~~~     ┃
+┃    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║
+┃                †    ▲▲      7        ~~~     ┃
 ╚═════════─────════════────────────────────────╯
+
+Koti, Kauppa, Keskusta, Pelto, Kuja
+52971
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▶
 
