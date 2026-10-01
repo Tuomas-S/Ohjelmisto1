@@ -50,11 +50,11 @@ while player.status == "Palaa kotiisi nukkumaan":
 
 if kirjat in player.inventory:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat ruokalan puuttumisesta. Pisteet: 2/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta Pisteet: 2/3.")} ")
     else:
-        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat ovat tyytyväisiä uuteen ruokalaan. Pisteet: 3/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Uusien tilojen ansiosta oppilailla on viihtyisämpää koulussa. Pisteet: 3/3.")} ")
 else:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Kaupungin asukkaat valittavat myös ruokalan puuttumisesta. Pisteet: 1/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta Pisteet: 1/3.")} ")
     else:
-        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Olet saanut kuitenkin kehuja maistuvasta ruuasta. Pisteet: 2/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. Pisteet: 2/3.")} ")

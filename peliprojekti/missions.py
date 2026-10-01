@@ -90,8 +90,7 @@ def buy_materials(player):
             keskusta.lockedText = format("Ennen kuin ehdit poistua kaupasta, myyjä nappaa sinua olkapäästä kiinni ja syyttää sinua varastamisesta. Senkin lurjus!")
             kauppa.acceptsItem.add(rahaa)
     keskusta.isLocked = False
-    raunio.hasItem.append(romua)
-    raunio.searchText = format("Metsän laidalla sijaitsee ruhjuinen raunio. Mahtaa olla jokin hylätty tehdas tai muu teollisuusrakennus.")
+    raunio.searchText = format("Metsän laidalla sijaitsee ruhjuinen raunio. Mahtaa olla jokin hylätty tehdas tai muu teollisuusrakennus. Kottikärrysi ovat täynnä rakennusmateriaaleja ja sinun tulee palata takaisin tyhjien kärryjen kanssa, jos haluat kerätä lisää materiaaleja.")
     input(f"{format("Voit nyt palata rakennusalueelle. Materiaalien tulisi riittää pienen koulun rakentamiseen.")} ")
     return("Rakenna koulu")
 
@@ -100,6 +99,8 @@ def finale(player):
         player.game_menu(player.status)
         check_environment(player)
     koti.searchText = format("Kotisi näyttää ihanan tunnelmalliselta. Takanasi on raskas päivä ja sänkysi näyttää ihanan pehmeältä.")
+    raunio.hasItem.append(romua)
+    raunio.searchText = format("Metsän laidalla sijaitsee ruhjuinen raunio. Mahtaa olla jokin hylätty tehdas tai muu teollisuusrakennus.")
     return("Palaa kotiisi nukkumaan")
 
 def ending(player):
