@@ -15,33 +15,35 @@ if age < 12:
     input("\n  Olet alaikäinen, suljetaan sovellus...")
     exit()
 else:
-    print(f"\n  Tervetuloa {name}!")
-    player = User(name, age, koti, "Tutoriaali", [])
+    player = User(name, age, koti, "Pakkaa tavarasi mukaan", [])
+    input(f"\n  Tervetuloa {name}! \n  [enter] = aloita peli ")
 
-input("  [enter] = aloita peli ")
 # Tähän intro.txt, seuraava rakenne on väliaikainen
-input(f"{split} \n{format("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä. ")}")
+input(f"{split} \n{format("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä.")} ")
 
-while player.status == "Tutoriaali":
+while player.status == "Pakkaa tavarasi mukaan":
     player.status = tutorial(player)
 
-while player.status == "Tutoriaali valmis":
+while player.status == "Valitse rakennuspaikka":
     player.status = building_spot(player)
 
-while player.status == "Kaupunki valittu":
+while player.status == "Hanki työkalut ja materiaalit":
     player.status = get_tools(player)
 
-while player.status == "Pelto valittu":
-    player.status = clear_niitty(player)
+while player.status == "Hae rahaa":
+    player.status = get_money(player)
 
-while player.status == "Lukossa kellarissa":
+while player.status == "Pelto valittu":
+    player.status = clear_pelto(player)
+
+while player.status == "Palaa maan päälle":
     player.status = escape_cellar(player)
 
-while player.status == "Kauppaan ostoksille":
+while player.status == "Käy ostamassa materiaalit":
     player.status = buy_materials(player)
 
-while player.status == "Finaali":
+while player.status == "Rakenna koulu":
     player.status = finale(player)
 
-while player.status == "Kotiin nukkumaan":
+while player.status == "Palaa kotiisi nukkumaan":
     player.status = ending(player)

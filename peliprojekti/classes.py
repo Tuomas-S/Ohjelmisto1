@@ -128,8 +128,11 @@ class User:
                 else:
                     itemUsed = self.item_use(choice)
 
-    # Päävalikko josta pelaaja voi valita eri funktioita
-    def menu(self, mission):
+    def main_menu(self):
+        return
+
+    # Pelin sisäinen valikko josta pelaaja voi valita eri funktioita
+    def game_menu(self, mission):
         print(f"{split} \n╭─────────────────────────────────────────────────────╮ \n│ [⌂] SIJAINTI: {self.location.name:<38}│ \n│ [≡] TEHTÄVÄ:  {mission:<38}│ \n╰─────────────────────────────────────────────────────╯ \n\n  [1] = Vaihda sijaintia \n  [2] = Tutki aluetta \n  [3] = Avaa inventaario \n  [4] = Sulje peli")
         choice = input("\n  Valitse toiminto: ")
         if choice == "1":
@@ -150,15 +153,15 @@ class User:
             input(f"{split} \n  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero. ")
 
 # Luodaan esineet ja lista kaikista esineistä pelin tallennusta varten (name, itemFound, useText, (useFail, isSingleUse, usedIn))
-kartta = Item("Kartta", format("Löysit kartan. Tästä voi olla paljon hyötyä."), "» ╭───────────────═══════════════════───────═════╗ \n  │           皿  ⌂ ⌂              5         ^   ║ \n  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]        N   ║ \n  ║    ┆      9 ║ ⌂⌂      │      ┆              ─╢ \n  │ [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ] ╌╌╌╮      │ \n  │    ┆ 1        ║          ♣Ψ  │ ♣      ┆ 4    │ \n  ║    ┆      [ Kauppa ]       ♣ │    [ Raunio ] ║ \n  ╠═   ┆           2             │ Ψ      ┆      ║ \n  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║ \n  ║                †      ▲▲      7      ~~~     │ \n  ╚═════════─────════════────────────────────────╯ \n\n  Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.")
-kärryt = Item("Kärryt", format("Löysit kottikärryt. Tällä saat kannettua raskaat rakennusmateriaalit paikasta toiseen."), format("Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."))
+kartta = Item("Kartta", format("Löysit kartan. Tästä voi olla paljon hyötyä."), "  ╭───────────────═══════════════════───────═════╗ \n  │           皿  ⌂ ⌂              5         ^   ║ \n  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]        N   ║ \n  ║    ┆      9 ║ ⌂⌂      │      ┆              ─╢ \n  │ [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ] ╌╌╌╮      │ \n  │    ┆ 1        ║          ♣Ψ  │ ♣      ┆ 4    │ \n  ║    ┆      [ Kauppa ]       ♣ │    [ Raunio ] ║ \n  ╠═   ┆           2             │ Ψ      ┆      ║ \n  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║ \n  ║                †      ▲▲      7      ~~~     │ \n  ╚═════════─────════════────────────────────────╯ \n\n» Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.")
+kärryt = Item("Kärryt", format("Löysit kottikärryt. Niillä saat kannettua raskaat rakennusmateriaalit paikasta toiseen."), format("Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."))
 kirjat = Item("Kirjat", format(""), format(""))
-työkalut = Item("Työkalut", format("Löysit sattumalta myös työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin."), format("Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."))
-rakennuslupa = Functional("Rakennuslupa", format("Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi."), format("Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä materiaalit."), format("Et voi rakentaa tähän. Kaupungista ja pellolta pitäisi löytyä rakennusalueita."), True, set())
+työkalut = Item("Työkalut", format("Löysit sattumalta myös ikivanhan työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin. Nyt on aika palata takaisin kauppaan."), format("Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."))
+rakennuslupa = Functional("Rakennuslupa", format("Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi."), format("Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä materiaalit."), format("Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita."), True, set())
 sorkkarauta = Functional("Sorkkarauta", format("Paniikki meinaa iskeä, kunnes havaitset huoneen nurkassa olevan sorkkaraudan. Ehkä saat oven tiirikoitua auki."), format("Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti."), format("Et ole nyt väkivaltaisella tuulella."), False, set())
-rahaa = Functional("Rahaa", format("Ai että. Juuri sopivasti rahaa rakennusmateriaalien ostamiseen."), "use", format("Sinulla ei ole mitään ostettavaa."), True, set())
+rahaa = Functional("Rahaa", format("Löysit possupankkisi, jonka tungit aikoinaan täyteen seteleitä. Juuri sopivasti rahaa rakennusmateriaalien ostamiseen."), format("Et ole säästänyt turhaan nämä kaikki vuodet. Kaikki rahasi kuluu rakennusmateriaaleihin ja nyt toivot ettei lisäkustannuksia tule enempää."), format("Sinulla ei ole mitään ostettavaa."), True, set())
 materiaalit = Functional("Materiaalit", format("Hankit myös kasan lautaa, ruuveja, nauloja, peltiä ja kaikkea muuta tarvittavaa."), format("Nyt kun vihdoin löysit kaiken tarvitsemasi, sait rakennettua pienen koulun. Budjettisi ei ole kovin suuri, joten tiloja on rajallisesti. Voit nyt palata kotiin nukkumaan, sillä koulu avataan vasta huomenna."), format("Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla."), True, set())
-romua = Functional("Romua", format("Löysit ison kasan käyttökelpoista romua, jota voit käyttää rakennusmateriaalina. Materiaalit riittävät nyt myös ruokalan rakentamiseen."), format("Rakensit pienen ruokalan ylimääräiselle alueelle. Toivottavasti ruoka maistuu, kun koulu avataan."), format("Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla."), True, set())
+romua = Functional("Romua", format("Löysit ison kasan romua, jota voit käyttää rakennusmateriaalina. Materiaalit riittävät nyt myös ruokalan rakentamiseen."), format("Rakensit pienen ruokalan ylimääräiselle alueelle. Toivottavasti ruoka maistuu, kun koulu avataan."), format("Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla."), True, set())
 allItems = [kartta, kärryt, rakennuslupa, kirjat, työkalut, sorkkarauta, rahaa, materiaalit, romua]
 
 # Luodaan sijainnit ja lista kaikista sijainneista pelin tallennusta varten (name, searchText, isLocked, lockedText, hasItem, acceptsItem, connections)
@@ -167,7 +170,7 @@ koti = Location("Koti", format("Kotisi näyttää ihanan tunnelmalliselta. Tahto
 kellari = Location("Kellari", format("Kellarisi haisee tunkkaiselta."), False, "  Lukittu... (Väliaikainen)", [rahaa, työkalut], {sorkkarauta})
 kuja = Location("Kuja", format('Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee "Koti, Kauppa, Keskusta, Pelto, Kuja".'), True, format("Kujalle vievä portti on muurattu kiinni laudoilla. Koitat repiä niitä irti mutta naulat ovat liian lujasti kiinni."), [], set())
 metsä = Location("Metsä", "  Tutkitaan... (Väliaikainen)", True, "  Lukittu... (Väliaikainen)", [], set())
-kauppa = Location("Kauppa", format("Kaupan hyllyt ovat täynnä rakennusmateriaaleja."), False, format("Et tarvitse kaupasta enää mitään."), [], set())
+kauppa = Location("Kauppa", format("Kaupan hyllyt ovat täynnä rakennusmateriaaleja."), False, format("Sinun kannattaa hakea kotoa rahaa ennen kauppaan palaamista."), [], set())
 raunio = Location("Raunio", format("Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä ja suurin osa materiaalista on jokatapauksessa käyttökelvotonta."), False, "", [], set())
 varasto = Location("Varasto", "  Tutkitaan... (Väliaikainen)", True, format("Rakennuksen ovi on lukossa. Anna 5-numeroinen koodi päästäksesi sisään:"), [kirjat], set())
 pelto = Location("Pelto", "  Tutkitaan... (Väliaikainen)", False, "  Lukittu... (Väliaikainen)", [], {rakennuslupa})
