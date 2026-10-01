@@ -12,7 +12,7 @@ while True:
         break
 age = int(age)
 if age < 12:
-    input("\n  Olet alaikäinen, suljetaan sovellus...")
+    input("\n  Olet alaikäinen, suljetaan sovellus... ")
     exit()
 else:
     player = User(name, age, koti, "Pakkaa tavarasi mukaan", [])
@@ -47,3 +47,14 @@ while player.status == "Rakenna koulu":
 
 while player.status == "Palaa kotiisi nukkumaan":
     player.status = ending(player)
+
+if kirjat in player.inventory:
+    if keskusta not in romua.usedIn and pelto not in romua.usedIn:
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat ruokalan puuttumisesta. Pisteet: 2/3.")} ")
+    else:
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat ovat tyytyväisiä uuteen ruokalaan. Pisteet: 3/3.")} ")
+else:
+    if keskusta not in romua.usedIn and pelto not in romua.usedIn:
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Kaupungin asukkaat valittavat myös ruokalan puuttumisesta. Pisteet: 1/3.")} ")
+    else:
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Olet saanut kuitenkin kehuja maistuvasta ruuasta. Pisteet: 2/3.")} ")

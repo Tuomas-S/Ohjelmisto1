@@ -3,11 +3,21 @@ from classes import *
 def check_environment(player):
     if keskusta in sorkkarauta.usedIn:
         kuja.isLocked = False
+
     if työkalut not in player.inventory and player.location in rakennuslupa.usedIn:
-        player.location.acceptsItem = {rakennuslupa, sorkkarauta}
+        player.location.acceptsItem.discard(materiaalit) # Discard ei välitä onko olio joukossa vai ei toisin kuin remove
+        player.location.acceptsItem.discard(romua)
+
     if työkalut in player.inventory and player.location in rakennuslupa.usedIn:
         player.location.acceptsItem.add(materiaalit)
         player.location.acceptsItem.add(romua)
+
+    if romua in player.inventory and raunio not in romua.usedIn:
+        romua.usedIn.add(raunio)
+        input(f"{format("Samalla kun lastaat romua kottikärryihisi, joku varastaa sinun työkalusi ja juoksee metsän syvyyksiin. Varas ei voi piileksiä kaukana. Etsi hänet ja ota työkalusi takaisin.")} ")
+        player.inventory.remove(työkalut)
+        random.choice([keskusta.hasItem, metsä.hasItem, kauppa.hasItem, pelto.hasItem]).append(työkalut)
+        työkalut.itemFound = format("Löydät työkaluvarkaan piileksimästä ja otat työkalusi takaisin. Varas juoksee itkien karkuun ja katoaa taivaan tuuliin.")
 
 def tutorial(player):
     while kartta not in player.inventory:
@@ -21,7 +31,6 @@ def building_spot(player):
         player.game_menu(player.status)
         check_environment(player)
         if keskusta in rakennuslupa.usedIn:
-            input(format("Muistelet että tässä jossain pitäisi olla rautakauppa."))
             keskusta.acceptsItem.add(materiaalit)
             keskusta.acceptsItem.add(romua)
             keskusta.searchText = format("Rakennustyömaasi kohoaa uljaasti keskustan ytimessä. Tästä tulee vielä hieno koulu.")
@@ -53,6 +62,7 @@ def get_money(player):
         player.game_menu(player.status)
         check_environment(player)
     kauppa.searchText = format("Kaupan hyllyt ovat täynnä rakennusmateriaaleja.")
+    koti.searchText = format("Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.")
     keskusta.acceptsItem.add(romua)
     kauppa.isLocked = False
     return("Palaa maan päälle")
@@ -82,16 +92,24 @@ def buy_materials(player):
     keskusta.isLocked = False
     raunio.hasItem.append(romua)
     raunio.searchText = format("Metsän laidalla sijaitsee ruhjuinen raunio. Mahtaa olla jokin hylätty tehdas tai muu teollisuusrakennus.")
-    input(format("Voit nyt palata rakennusalueelle ja rakentaa koulun. "))
+    input(f"{format("Voit nyt palata rakennusalueelle. Materiaalien tulisi riittää pienen koulun rakentamiseen.")} ")
     return("Rakenna koulu")
 
 def finale(player):
     while materiaalit.usedIn != rakennuslupa.usedIn:
         player.game_menu(player.status)
         check_environment(player)
+    koti.searchText = format("Kotisi näyttää ihanan tunnelmalliselta. Takanasi on raskas päivä ja sänkysi näyttää ihanan pehmeältä.")
     return("Palaa kotiisi nukkumaan")
 
 def ending(player):
-    while True:
+    confirm = "definitely not ok"
+    koti.hasItem.append(yöpuku)
+    koti.acceptsItem.add(yöpuku)
+    while confirm != "ok":
+        yöpuku.usedIn = set()
         player.game_menu(player.status)
         check_environment(player)
+        if koti in yöpuku.usedIn:
+            confirm = input('╭─────────────────────────────────────────────────────────────╮ \n\│ Haluatko vaihtaa yövaatteet päälle ja painua sänkyyn?       │ \n╰─────────────────────────────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+    return("Peli läpäisty")

@@ -3,13 +3,11 @@
 **Tuomas Soini**
 
 ## classes.py
-Luokat ja oliot löytyvät täältä  
+Luokat ja oliot  
 Luokkien sisäiset funktiot
 
 ## game.py
-Pääohjelma jossa peli pyörii (Tarina on tällä hetkellä väliaikainen)
+Pääohjelma jossa peli pyörii
 
-## idea.txt
-Pelin idea itseäni varten lol  
-Valikoiden suunnittelua  
-Kartta
+## missions.py
+Pelin eri vaiheet ja niihin sisältyvät funktiot
