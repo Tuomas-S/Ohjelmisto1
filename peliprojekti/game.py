@@ -1,7 +1,7 @@
 from classes import *
 from missions import *
 
-name = input(f"{split} \n  Nimi: ")
+name = input("  Nimi: ")
 age = input("  Ikä:  ")
 while True:
     try:
@@ -28,13 +28,13 @@ while player.status == "Valitse rakennuspaikka":
     player.status = building_spot(player)
 
 while player.status == "Hanki työkalut ja materiaalit":
-    player.status = get_tools(player)
+    player.status = visit_store(player)
 
-while player.status == "Hae rahaa":
+while player.status == "Hanki vajan avain":
+    player.status = get_key(player)
+
+while player.status == "Käy hakemassa rahaa":
     player.status = get_money(player)
-
-while player.status == "Pelto valittu":
-    player.status = clear_pelto(player)
 
 while player.status == "Palaa maan päälle":
     player.status = escape_cellar(player)
@@ -50,11 +50,11 @@ while player.status == "Palaa kotiisi nukkumaan":
 
 if kirjat in player.inventory:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta Pisteet: 2/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ★ ☆")} ")
     else:
-        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Uusien tilojen ansiosta oppilailla on viihtyisämpää koulussa. Pisteet: 3/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun ja koulutuksen laatu on erinomaista. Uusien tilojen ansiosta oppilailla on viihtyisämpää koulussa. Pisteet: ★ ★ ★")} ")
 else:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta Pisteet: 1/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ☆ ☆")} ")
     else:
-        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksessa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. Pisteet: 2/3.")} ")
+        input(f"{split} \n{format("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. Pisteet: ★ ★ ☆")} ")

@@ -8,26 +8,26 @@ def format(text):
     lines = textwrap.wrap(text, width=64)
     return "» " + "\n  ".join(lines)
 
-# Luodaan luokat
+# Luokat
 class Item:
-    def __init__(self, name, itemFound, useText):
+    def __init__(self, name, itemFound, itemUsed):
         self.name = name # esineen nimi
         self.itemFound = itemFound # tämä tulostuu esineen löytyessä
-        self.useText = useText # tämä tulostuu kun esinettä käytetään
+        self.itemUsed = itemUsed # tämä tulostuu kun esinettä käytetään
 
 class Functional(Item):
-    def __init__(self, name, itemFound, useText, useFail, isSingleUse, usedIn):
-        super().__init__(name, itemFound, useText)
-        self.useFail = useFail # tämä tulostuu kun esinettä ei voi käyttää
+    def __init__(self, name, itemFound, itemUsed, itemNotUsed, isSingleUse, usedIn):
+        super().__init__(name, itemFound, itemUsed)
+        self.itemNotUsed = itemNotUsed # tämä tulostuu kun esinettä ei voi käyttää
         self.isSingleUse = isSingleUse # onko esine kertakäyttöinen
         self.usedIn = usedIn # missä sijainnissa esine on käytetty (joukko)
 
 class Location:
-    def __init__(self, name, searchText, isLocked, lockedText, hasItem, acceptsItem, connections = None):
+    def __init__(self, name, searchText, isLocked, cantEnter, hasItem, acceptsItem, connections = None):
         self.name = name # sijainnin nimi
         self.searchText = searchText # tämä tulostetaan kun sijaintia tutkitaan
         self.isLocked = isLocked # onko pelaajalla pääsyä sijaintiin vai ei
-        self.lockedText = lockedText # tämä tulostuu jos koitetaan siirtyä lukittuun sijaintiin
+        self.cantEnter = cantEnter # tämä tulostuu jos koitetaan siirtyä lukittuun sijaintiin
         self.hasItem = hasItem # sijainnista löytyvät esineet (lista)
         self.acceptsItem = acceptsItem # mitä esinettä sijainnissa voi käyttää
         self.connections = connections # joukko paikoista mihin tästä sijainnista pääsee
@@ -40,25 +40,25 @@ class User:
         self.status = status # pelaajan tämänhetkinen tilanne
         self.inventory = inventory # inventaario
 
-    # Pelaajan liikkuminen listasta valittuun sijaintiin
-    def move(self, ownLocation):
+    # Pelaajan liikkuminen
+    def move(self):
         hasMoved = False
         while hasMoved == False:
             print(f"{split} \n╭─────────────────────────────────────────────╮ \n│ Voit siirtyä seuraaviin paikkoihin:         │")
-            for i in ownLocation.connections:
+            for i in self.location.connections:
                 print(f"│ » {i.name:<42}│")
             choice = input("╰─────────────────────────────────────────────╯ \n\n  Liiku paikkaan kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
             if choice == "":
                 hasMoved = True
                 break
             else:
-                for i in ownLocation.connections:
+                for i in self.location.connections:
                     if choice.lower() == i.name.lower():
                         if i.isLocked:
-                            code = input(f"{split} \n{i.lockedText} ")
+                            code = input(f"{split} \n{format(i.cantEnter)} ")
                             if self.location == kuja and code == "52971" and varasto.isLocked == True:
                                 varasto.isLocked = False
-                                kuja.searchText = format("Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta.")
+                                kuja.searchText = "Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta."
                                 input(f"{format("Lukko aukeaa.")} ")
                             break
                         print("  Siirrytään...")
@@ -70,17 +70,17 @@ class User:
                     input(f"{split} \n  Sijaintia ei löytynyt. ")
 
     # Nykyisen sijainnin tutkiminen
-    def search(self, location):
-        input(f"{split} \n{location.searchText} ")
+    def search(self):
+        input(f"{split} \n{format(self.location.searchText)} ")
         if self.location.hasItem == []:
             input("\n  Et löytänyt alueelta mitään mukaan otettavaa. ")
         else:
             for i in self.location.hasItem:
-                input(f"{i.itemFound} ")
+                input(f"{format(i.itemFound)} ")
                 self.inventory.append(i)
-            location.hasItem = []
+            self.location.hasItem = []
 
-    # Esineen käyttäminen (choice on pelaajan tekemä valinta)
+    # Esineen käyttäminen
     def item_use(self, choice):
         for i in self.inventory:
             if choice.lower() == i.name.lower():
@@ -91,29 +91,33 @@ class User:
                             return(False)
                         print("  Käytetään esine...")
                         time.sleep(random.randrange(1, 3))
-                        input(f"{split} \n{i.useText} ")
-                        i.usedIn.add(self.location)
+                        input(f"{split} \n{format(i.itemUsed)} ")
+                        i.usedIn.append(self.location)
                         if i.isSingleUse:
                             self.inventory.remove(i)
                         return(True)
                     else:
-                        input(f"{split} \n{i.useFail} ")
+                        input(f"{split} \n{format(i.itemNotUsed)} ")
                         return(False)
                 else:
                     print("  Käytetään esine...")
                     time.sleep(random.randrange(1, 3))
-                    input(f"{split} \n{i.useText} ")
+                    if choice.lower() == "kartta":
+                        input(f"{split} \n{kartta.itemUsed} ")
+                    else:
+                        input(f"{split} \n{format(i.itemUsed)} ")
                     return(True)
         else:
             input(f"{split} \n  Esinettä ei löytynyt inventaariostasi. ")
             return(False)
         
-    # Inventaarion tulostus ja esineen valinta
+    # Inventaario ja esineen valinta
     def inv_show(self):
-        itemUsed = False
-        while itemUsed == False:
+        itemWasUsed = False
+        while itemWasUsed == False:
             if self.inventory == []:
-                input(f"{split} \n╭───────────────────────────────────────╮ \n│ Inventaariosi on tyhjä.               │ \n│ Täältä näet löytämäsi esineet.        │ \n╰───────────────────────────────────────╯ \n\n  [enter] = takaisin ")
+                input(f"{split}"
+                      "\n╭───────────────────────────────────────╮ \n│ Inventaariosi on tyhjä.               │ \n│ Täältä näet löytämäsi esineet.        │ \n╰───────────────────────────────────────╯ \n\n  [enter] = takaisin ")
                 break
             else:
                 print(f"{split} \n╭─────────────────────────────────────────╮ \n│ Inventaariossasi on:                    │")
@@ -123,21 +127,18 @@ class User:
                 if choice == "":
                     break
                 else:
-                    itemUsed = self.item_use(choice)
+                    itemWasUsed = self.item_use(choice)
 
-    def main_menu(self):
-        return
-
-    # Pelin sisäinen valikko josta pelaaja voi valita eri funktioita
+    # Pelin sisäinen valikko
     def game_menu(self, mission):
         print(f"{split} \n╭─────────────────────────────────────────────────────╮ \n│ [⌂] SIJAINTI: {self.location.name:<38}│ \n│ [≡] TEHTÄVÄ:  {mission:<38}│ \n╰─────────────────────────────────────────────────────╯ \n\n  [1] = Vaihda sijaintia \n  [2] = Tutki aluetta \n  [3] = Avaa inventaario \n  [4] = Sulje peli")
         choice = input("\n  Valitse toiminto: ")
         if choice == "1":
-            self.move(self.location)
+            self.move()
         elif choice == "2":
             print("  Tutkitaan aluetta...")
             time.sleep(random.randrange(1,3))
-            self.search(self.location)
+            self.search()
         elif choice == "3":
             print("  Avataan inventaario...")
             time.sleep(1)
@@ -149,32 +150,215 @@ class User:
         else:
             input(f"{split} \n  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero. ")
 
-# Luodaan esineet ja lista kaikista esineistä pelin tallennusta varten (name, itemFound, useText, (useFail, isSingleUse, usedIn))
-kartta = Item("Kartta", format("Löysit kartan. Tästä voi olla paljon hyötyä."), "  ╭───────────────═══════════════════───────═════╗ \n  │           皿  ⌂ ⌂              5         ^   ║ \n  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]        N   ║ \n  ║    ┆      9 ║ ⌂⌂      │      ┆              ─╢ \n  │ [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ] ╌╌╌╮      │ \n  │    ┆ 1        ║          ♣Ψ  │ ♣      ┆ 4    │ \n  ║    ┆      [ Kauppa ]       ♣ │    [ Raunio ] ║ \n  ╠═   ┆           2             │ Ψ      ┆      ║ \n  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║ \n  ║                †      ▲▲      7      ~~~     │ \n  ╚═════════─────════════────────────────────────╯ \n\n» Kartta kaikista kaupungin sijainneista. \n  Jotkut sijainnit eivät ole aina saatavilla.")
-kärryt = Item("Kärryt", format("Löysit kottikärryt. Niillä saat kannettua raskaat rakennusmateriaalit paikasta toiseen."), format("Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."))
-kirjat = Item("Kirjat", format("Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan."), format("Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Loppupäivästä jos sinulla on aikaa, voit silmäillä kirjat läpi ja päättää haluatko käyttää niitä opetusmateriaaleina."))
-työkalut = Item("Työkalut", format("Löysit sattumalta myös ikivanhan työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin. Nyt on aika palata takaisin kauppaan."), format("Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."))
-rakennuslupa = Functional("Rakennuslupa", format("Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi."), format("Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä materiaalit."), format("Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita."), True, set())
-sorkkarauta = Functional("Sorkkarauta", format("Paniikki meinaa iskeä, kunnes havaitset huoneen nurkassa olevan sorkkaraudan. Ehkä saat oven tiirikoitua auki."), format("Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti."), format("Et ole nyt väkivaltaisella tuulella."), False, set())
-rahaa = Functional("Rahaa", format("Löysit possupankkisi, jonka tungit aikoinaan täyteen seteleitä. Juuri sopivasti rahaa rakennusmateriaalien ostamiseen."), format("Et ole säästänyt turhaan kaikkien näiden vuosien ajan. Kaikki rahasi kuluu rakennusmateriaaleihin ja nyt toivot ettei lisäkustannuksia tule enempää."), format("Sinulla ei ole mitään ostettavaa."), True, set())
-materiaalit = Functional("Materiaalit", format("Hankit myös kasan lautaa, ruuveja, nauloja, peltiä ja kaikkea muuta tarvittavaa."), format("Nyt kun vihdoin löysit kaiken tarvitsemasi, sait rakennettua pienen koulun. Budjettisi ei ollut kovin suuri, joten tiloja on rajallisesti. Voit nyt halutessasi palata kotiin nukkumaan tai jatkaa tutkimista. Koulu avataan vasta huomenna."), format("Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla."), True, set())
-romua = Functional("Romua", format("Löysit ison kasan romua, jota voit käyttää rakennusmateriaalina. Näillä saat laajennettua koulun tiloja huomattavasti."), format("Laajensit koulua rakentamalla uusia luokkahuoneita sekä varastotilan."), format("Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla."), True, set())
-yöpuku = Functional("Yöpuku", format("Nappaat kaapistasi sinisen yöpukusi. Näytät ihan Herra Hakkaraiselta se päällä. Et halua kuitenkaan mennä vielä nukkumaan likaiset vaatteet ylläsi."), format("Ai että. Pitkästä aikaa pääsee taas nukkumaan."), format("Älä nyt hyvä ihminen rupea täällä vaihtamaan vaatteita!!"), False, set())
-allItems = [kartta, kärryt, rakennuslupa, kirjat, työkalut, sorkkarauta, rahaa, materiaalit, romua, yöpuku]
 
-# Luodaan sijainnit ja lista kaikista sijainneista pelin tallennusta varten (name, searchText, isLocked, lockedText, hasItem, acceptsItem, connections)
-keskusta = Location("Keskusta", format("Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin ajastasi luonnossa."), True, format("Pakkaa tavarasi mukaan ennen keskustaan suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy kartta sekä rakennuslupa."), [], {rakennuslupa, sorkkarauta})
-koti = Location("Koti", format("Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä."), False, format("Rahoja etsiessä työnsit vahingossa kellarin oven kiinni ja lukitsit sen. Olet jumissa..."), [kartta, rakennuslupa], {kirjat})
-kellari = Location("Kellari", format("Kellarisi haisee tunkkaiselta."), False, "  Lukittu... (Väliaikainen)", [rahaa, työkalut], {sorkkarauta})
-kuja = Location("Kuja", format('Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee "Koti, Kauppa, Keskusta, Pelto, Kuja".'), True, format("Kujalle vievä portti on muurattu kiinni laudoilla. Koitat repiä niitä irti mutta naulat ovat liian lujasti kiinni."), [], set())
-metsä = Location("Metsä", format(""), True, format(""), [], set())
-kauppa = Location("Kauppa", format("Kaupan hyllyt ovat täynnä rakennusmateriaaleja."), False, format("Sinun kannattaa hakea kotoa rahaa ennen kauppaan palaamista."), [], set())
-raunio = Location("Raunio", format("Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä ja suurin osa materiaalista on jokatapauksessa käyttökelvotonta."), False, "", [], set())
-varasto = Location("Varasto", format("Laitat varaston valot päälle. Tomua kaikkialla. Et välttämättä halua lorvailla täällä turhan kauaa ellet halua tuberkuloosia."), True, format("Rakennuksen ovi on lukossa. Anna 5-numeroinen koodi päästäksesi sisään:"), [kirjat], set())
-pelto = Location("Pelto", format(""), False, format(""), [], {rakennuslupa})
-allLocations = [koti, kellari, keskusta, kuja, metsä, kauppa, raunio, varasto, pelto]
 
-# Lisätään alueiden väliset yhteydet
+# Esineet
+kartta = Item(
+    name = "Kartta",
+    itemFound = "Löysit kartan. Tästä voi olla paljon hyötyä.",
+    itemUsed = "  ╭───────────────═══════════════════───────═════╗ \n"
+               "  │           皿  ⌂ ⌂              5         ^   ║ \n"
+               "  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]        N   ║ \n"
+               "  ║    ┆      9 ║ ⌂⌂      │      ┆              ─╢ \n"
+               "  │ [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ] ╌╌╌╮      │ \n"
+               "  │    ┆ 1        ║          ♣Ψ  │ ♣      ┆ 4    │ \n"
+               "  ║    ┆      [ Kauppa ]       ♣ │    [ Raunio ] ║ \n"
+               "  ╠═   ┆           2             │ Ψ      ┆      ║ \n"
+               "  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║ \n"
+               "  ║                †      ▲▲      7      ~~~     │ \n"
+               "  ╚═════════─────════════────────────────────────╯ \n\n"
+               "» Kartta kaikista kaupungin sijainneista.\n"
+               "  Jotkut sijainnit eivät ole aina saatavilla."
+    )
+
+kärryt = Item(
+    name = "Kärryt",
+    itemFound = "Löysit kottikärryt. Niillä saat kannettua raskaat rakennusmateriaalit paikasta toiseen.",
+    itemUsed = "Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."
+    )
+
+kirjat = Item(
+    name = "Kirjat",
+    itemFound = "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
+    itemUsed = "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Loppupäivästä jos sinulla on aikaa, voit silmäillä kirjat läpi ja päättää haluatko käyttää niitä opetusmateriaaleina."
+    )
+
+työkalut = Item(
+    name = "Työkalut",
+    itemFound = "Löysit sattumalta myös ikivanhan työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin. Nyt on aika palata takaisin kauppaan.",
+    itemUsed = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."
+    )
+
+# Funktionaaliset esineet
+rakennuslupa = Functional(
+    name = "Rakennuslupa",
+    itemFound = "Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi.",
+    itemUsed = "Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä materiaalit.",
+    itemNotUsed = "Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita.",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+sorkkarauta = Functional(
+    name = "Sorkkarauta",
+    itemFound = "Paniikki meinaa iskeä, kunnes havaitset huoneen nurkassa olevan sorkkaraudan. Ehkä saat oven tiirikoitua auki.",
+    itemUsed = "Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti.",
+    itemNotUsed = "Et ole nyt väkivaltaisella tuulella.",
+    isSingleUse = False,
+    UsedIn = []
+    )
+
+avain = Functional(
+    name = "Avain",
+    itemFound = "Kurotat sorkkaraudalla lipaston alle ja nappaat vajan avaimen mukaan.",
+    itemUsed = "Avaat vajan lukon.",
+    itemNotUsed = "Avain ei käy tähän.",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+harava = Functional(
+    name = "Harava",
+    itemFound = "",
+    itemUsed = "",
+    itemNotUsed = "",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+rahaa = Functional(
+    name = "Rahaa",
+    itemFound = "Löysit possupankkisi, jonka tungit aikoinaan täyteen seteleitä. Juuri sopivasti rahaa rakennusmateriaalien ostamiseen.",
+    itemUsed = "Et ole säästänyt turhaan kaikkien näiden vuosien ajan. Kaikki rahasi kuluu rakennusmateriaaleihin ja nyt toivot ettei lisäkustannuksia tule enempää.",
+    itemNotUsed = "Sinulla ei ole mitään ostettavaa.",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+materiaalit = Functional(
+    name = "Materiaalit",
+    itemFound = "Hankit myös kasan lautaa, ruuveja, nauloja, peltiä ja kaikkea muuta tarvittavaa.",
+    itemUsed = "Nyt kun vihdoin löysit kaiken tarvitsemasi, sait rakennettua pienen koulun. Budjettisi ei ollut kovin suuri, joten tiloja on rajallisesti. Voit nyt halutessasi palata kotiin nukkumaan tai jatkaa tutkimista. Koulu avataan vasta huomenna.",
+    itemNotUsed = "Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla.",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+romua = Functional(
+    name = "Romua",
+    itemFound = "Löysit ison kasan romua, jota voit käyttää rakennusmateriaalina. Näillä saat laajennettua koulun tiloja huomattavasti.",
+    itemUsed = "Laajensit koulua rakentamalla uusia luokkahuoneita sekä varastotilan.",
+    itemNotUsed = "Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla.",
+    isSingleUse = True,
+    UsedIn = []
+    )
+
+yöpuku = Functional(
+    name = "Yöpuku",
+    itemFound = "Nappaat kaapistasi sinisen yöpukusi. Näytät ihan Herra Hakkaraiselta se päällä. Et halua kuitenkaan mennä vielä nukkumaan likaiset vaatteet ylläsi.",
+    itemUsed = "Ai että. Pitkästä aikaa pääsee taas nukkumaan.",
+    itemNotUsed = "Älä nyt hyvä ihminen rupea täällä vaihtamaan vaatteita!!",
+    isSingleUse = False,
+    UsedIn = []
+    )
+
+allItemNames = ["Kartta", "Kärryt", "Kirjat", "Työkalut", "Rakennuslupa", "Sorkkarauta", "Avain", "Harava", "Rahaa", "Materiaalit", "Romua", "Yöpuku"]
+
+
+# Sijainnit
+keskusta = Location(
+    name = "Keskusta",
+    search = "Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin ajastasi luonnossa.",
+    isLocked = True,
+    cantEnter = "Pakkaa tavarasi mukaan ennen keskustaan suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy kartta sekä rakennuslupa.",
+    hasItem = [],
+    acceptsItem = [rakennuslupa, sorkkarauta]
+    )
+
+koti = Location(
+    name = "Koti",
+    search = "Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.",
+    isLocked = False,
+    cantEnter = "Rahoja etsiessä työnsit vahingossa kellarin oven kiinni ja lukitsit sen. Olet jumissa...",
+    hasItem = [kartta, rakennuslupa],
+    acceptsItem = [kirjat]
+)
+
+kellari = Location(
+    name = "Kellari",
+    search = "Kellarisi haisee tunkkaiselta.",
+    isLocked = False,
+    cantEnter = "Ei lukittu",
+    hasItem = [],
+    acceptsItem = []
+)
+
+kuja = Location(
+    name = "Kuja",
+    search = 'Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee "Koti, Kauppa, Keskusta, Pelto, Kuja".',
+    isLocked = True,
+    cantEnter = "Kujalle vievä portti on muurattu kiinni laudoilla. Koitat repiä niitä irti mutta naulat ovat liian lujasti kiinni.",
+    hasItem = [],
+    acceptsItem = []
+)
+
+metsä = Location(
+    name = "Metsä",
+    search = "Tunnet raikkaan ilman keuhkoissasi ja nenääsi tunkeutuu ihana luonnon tuoksu. Ehkä joku päivä voisit tulla tänne telttaretkelle.",
+    isLocked = True,
+    cantEnter = "",
+    hasItem = [],
+    acceptsItem = []
+)
+
+kauppa = Location(
+    name = "Kauppa",
+    search = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja.",
+    isLocked = False,
+    cantEnter = "Sinun kannattaa hakea kotoa rahaa ennen kauppaan palaamista.",
+    hasItem = [],
+    acceptsItem = []
+)
+
+raunio = Location(
+    name = "Raunio",
+    search = "Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä ja suurin osa materiaalista on jokatapauksessa käyttökelvotonta.",
+    isLocked = False,
+    cantEnter = "",
+    hasItem = [],
+    acceptsItem = []
+)
+
+varasto = Location(
+    name = "Varasto",
+    search = "Laitat varaston valot päälle. Tomua kaikkialla. Et välttämättä halua lorvailla täällä turhan kauaa ellet halua tuberkuloosia.",
+    isLocked = True,
+    cantEnter = "Rakennuksen ovi on lukossa. Anna 5-numeroinen koodi päästäksesi sisään:",
+    hasItem = [kirjat],
+    acceptsItem = []
+)
+
+pelto = Location(
+    name = "Pelto",
+    search = "",
+    isLocked = False,
+    cantEnter = "",
+    hasItem = [],
+    acceptsItem = [rakennuslupa]
+)
+
+vaja = Location(
+    name = "Vaja",
+    search = "Tutkitaan !!!!!!!!!!!!!!!!!!!!!!!!!! Väliaikainen",
+    isLocked = True,
+    cantEnter = "Vajan ovi on lukittu. Yleisavain löytyy kotoasi.",
+    hasItem = [],
+    acceptsItem = []
+)
+
+allLocationNames = ["Keskusta", "Koti", "Kellari", "Kuja", "Metsä", "Kauppa", "Raunio", "Varasto", "Pelto", "Vaja"]
+
+# Sijaintien väliset yhteydet
 keskusta.connections = [koti, metsä, kauppa, kuja]
 koti.connections = [keskusta, metsä]
 kellari.connections = [koti]
@@ -184,3 +368,4 @@ kauppa.connections = [keskusta]
 raunio.connections = [metsä, pelto]
 varasto.connections = [kuja]
 pelto.connections = [metsä, raunio]
+vaja.connections = [metsä]
