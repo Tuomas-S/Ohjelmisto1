@@ -1,26 +1,22 @@
-from classes import *
+from user import *
+from text_format import *
 
-name = input("  Nimi: ")
-age = input("  Ikä:  ")
+player.name = input("  Nimi: ")
+player.age = input("  Ikä:  ")
 while True:
     try:
-        int(age)
+        int(player.age)
     except ValueError:
         age = input("  Anna oikea ikä: ")
     else:
         break
-age = int(age)
-if age < 12:
+player.age = int(player.age)
+if player.age < 12:
     input("\n  Olet alaikäinen, suljetaan sovellus...")
     exit()
 else:
-    player = User(name, age, koti, "Pakkaa tavarasi mukaan", [])
-    input(f"\n  Tervetuloa {name}! \n  [enter] = aloita peli")
-    clear_shell()    
-
-# Tähän intro.txt, seuraava rakenne on väliaikainen
-input(divide("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä."))
-clear_shell()
+    input(f"\n  Tervetuloa {player.name}! \n  [enter] = aloita peli")
+    clear_shell()
 
 def check_environment(player):
     if keskusta in sorkkarauta.usedIn:
@@ -39,17 +35,19 @@ def check_environment(player):
         input(f"\n{divide("Samalla kun lastaat romua kottikärryihisi, joku varastaa sinun työkalusi ja juoksee metsän syvyyksiin. Varas ei voi piileksiä kaukana. Etsi hänet ja ota työkalusi takaisin.")}")
         player.inventory.remove(työkalut)
         random.choice([keskusta.hasItem, metsä.hasItem, kauppa.hasItem, pelto.hasItem]).append(työkalut)
-        työkalut.itemFound = "Löydät työkaluvarkaan piileksimästä ja otat työkalusi takaisin. Varas juoksee itkien karkuun ja katoaa taivaan tuuliin."
+        työkalut.foundText = "Löydät työkaluvarkaan piileksimästä ja otat työkalusi takaisin. Varas juoksee itkien karkuun ja katoaa taivaan tuuliin."
 
 while player.status == "Pakkaa tavarasi mukaan":
+    input(divide("Olet muuttanut uuteen kaupunkiin ja huomaat, ettei alueella ole mahdollisuutta minkäänlaiseen koulutukseen. Otat tehtäväksesi rakentaa kaupungin asukkaille laadukkaan koulun. Muista ottaa tavarasi mukaan ennen lähtöä."))
+    clear_shell()
     while kartta not in player.inventory:
-        player.game_menu(player.status)
+        player.menu(player.status)
     player.status = "Valitse rakennuspaikka"
 
 while player.status == "Valitse rakennuspaikka":
     keskusta.isLocked = metsä.isLocked = False
     while rakennuslupa.usedIn == []:
-        player.game_menu(player.status)
+        player.menu(player.status)
         if keskusta in rakennuslupa.usedIn:
             keskusta.acceptsItem.extend([materiaalit, romua])
             keskusta.searchText = "Rakennustyömaasi kohoaa uljaasti keskustan ytimessä. Tästä tulee vielä hieno koulu."
@@ -63,9 +61,9 @@ while player.status == "Valitse rakennuspaikka":
 while player.status == "Hanki työkalut ja materiaalit":
     kauppa.searchText = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja. Huomaat kuitenkin, että unohdit rahasi kotiin."
     while player.location != kauppa:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
-    input(splitter + divide("Saapuessasi kauppaan muistat, ettet pakannut rahojasi mukaan. Onneksi kotiin ei ole pitkä matka."))
+    input(fancyLine + divide("Saapuessasi kauppaan muistat, ettet pakannut rahojasi mukaan. Onneksi kotiin ei ole pitkä matka."))
     kauppa.isLocked = True
     koti.connections.append(kellari)
     koti.searchText = "Etsit ja etsit rahojasi kaikkialta ilman minkäänlaista tulosta. Muistat, että veit eilen tavaroitasi kellariin. Ehkä rahat löytyisivät sieltä."
@@ -76,9 +74,9 @@ while player.status == "Hanki vajan avain":
     koti.connections.append(kellari)
     kellari.hasItem.append(sorkkarauta)
     koti.searchText = "Löydät avaimesi lipaston alta, muttet yletä ottamaan sitä. Ehkä kellarista löytyisi jotain kättä pidempää."
-    sorkkarauta.itemFound = "Kellarin seinustalla nojaava sorkkarauta voisi olla tarpeeksi pitkä avaimen saamiseen."
+    sorkkarauta.foundText = "Kellarin seinustalla nojaava sorkkarauta voisi olla tarpeeksi pitkä avaimen saamiseen."
     while avain not in player.inventory:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
         if sorkkarauta in player.inventory and koti not in sorkkarauta.usedIn:
             koti.hasItem.append(avain)
@@ -91,7 +89,7 @@ while player.status == "Hanki vajan avain":
 while player.status == "Käy hakemassa rahaa":
     kellari.hasItem.extend([rahaa, työkalut])
     while rahaa not in player.inventory:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
     kauppa.searchText = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja."
     koti.searchText = "Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä."
@@ -102,7 +100,7 @@ while player.status == "Käy hakemassa rahaa":
 while player.status == "Raivaa pelto":
     pelto.searchText = "Tarvitset haravan sekä kottikärryt raivataksesi pellon. Ne löytyvät vajasta metsän vierestä."
     while pelto not in harava.usedIn:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
         if metsä in avain.usedIn:
             vaja.isLocked = False
@@ -114,24 +112,24 @@ while player.status == "Raivaa pelto":
 
 while player.status == "Palaa maan päälle":
     koti.isLocked = True
-    sorkkarauta.itemUsed = "Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti."
-    työkalut.itemUsed = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Koitat avata kellarin ovea vasaralla, mutta vipuvoima ei yksinkertaisesti riitä. Ehkä kellarista voisi löytyä jotain järeämpää."
+    sorkkarauta.usedText = "Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti."
+    työkalut.usedText = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Koitat avata kellarin ovea vasaralla, mutta vipuvoima ei yksinkertaisesti riitä. Ehkä kellarista voisi löytyä jotain järeämpää."
     kellari.hasItem.append(sorkkarauta)
     kellari.acceptsItem.append(sorkkarauta)
     while player.location != koti:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
         if kellari in sorkkarauta.usedIn:
             koti.isLocked = False
-            sorkkarauta.itemUsed = "Sorkkarauta uppoaa hyvin kujaa peittävien lautojen alle. Saat kangettua naulat irti ja avaat reitin kujalle."
-    työkalut.itemUsed = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."
+            sorkkarauta.usedText = "Sorkkarauta uppoaa hyvin kujaa peittävien lautojen alle. Saat kangettua naulat irti ja avaat reitin kujalle."
+    työkalut.usedText = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."
     player.status = "Osta rakennustarvikkeet"
 
 while player.status == "Käy kaupassa":
     while player.location != metsä:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
-    input(splitter + divide("Kulkiessasi metsän läpi törmäät puhuvaan oravaan. Hän näkee kottikärryissäsi kasan lehtiä ja tarjoaa rahaa vastineeksi niistä."))
+    input(fancyLine + divide("Kulkiessasi metsän läpi törmäät puhuvaan oravaan. Hän näkee kottikärryissäsi kasan lehtiä ja tarjoaa rahaa vastineeksi niistä."))
     input(f"\n{divide("Hetken hämmästeltyäsi päätät ottaa tarjouksen vastaan ja vastaanotat oravalta huiman kasan rahaa. Mitäköhän laittomuuksia näihinkin seteleihin liittyy...")}")
     player.inventory.append(rahaa)
     player.status = "Osta rakennustarvikkeet"
@@ -141,10 +139,10 @@ while player.status == "Osta rakennustarvikkeet":
         kauppa.hasItem.extend([kärryt, materiaalit])
     else:
         kauppa.hasItem.extend([työkalut, materiaalit])
-        työkalut.itemFound = "Ihailet kiiltäviä työvälineitä ja päätät ostaa niitä ihan runsaasti. Mukaasi lähtee vasara, pihdit, saha, mittanauha, sekä Milwaukeen ruuvinväännin."
-        rahaa.itemUsed = "Mikä mäihä! Oravan antamat rahat menivät hyvään käyttöön. Säästit huomattavasti rahaa ja nyt voit jopa tilata huoltomiehet tarkistamaan kellarisi hajuhaittojen lähteen."
+        työkalut.foundText = "Ihailet kiiltäviä työvälineitä ja päätät ostaa niitä ihan runsaasti. Mukaasi lähtee vasara, pihdit, saha, mittanauha, sekä Milwaukeen ruuvinväännin."
+        rahaa.usedText = "Mikä mäihä! Oravan antamat rahat menivät hyvään käyttöön. Säästit huomattavasti rahaa ja nyt voit jopa tilata huoltomiehet tarkistamaan kellarisi hajuhaittojen lähteen."
     while rahaa in player.inventory:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
         if materiaalit in player.inventory and rahaa in player.inventory:
             keskusta.isLocked = True
@@ -157,7 +155,7 @@ while player.status == "Osta rakennustarvikkeet":
 
 while player.status == "Viimeistele koulu":
     while materiaalit.usedIn != rakennuslupa.usedIn:
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
     koti.searchText = "Kotisi näyttää ihanan tunnelmalliselta. Takanasi on raskas päivä ja sänkysi näyttää ihanan pehmeältä."
     raunio.hasItem.append(romua)
@@ -170,7 +168,7 @@ while player.status == "Palaa kotiisi nukkumaan":
     koti.acceptsItem.append(yöpuku)
     while confirm != "ok":
         yöpuku.usedIn = []
-        player.game_menu(player.status)
+        player.menu(player.status)
         check_environment(player)
         if koti in yöpuku.usedIn:
             confirm = input('╭─────────────────────────────────────────────────────────────╮ \n\│ Haluatko vaihtaa yövaatteet päälle ja painua sänkyyn?       │ \n╰─────────────────────────────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
@@ -178,11 +176,11 @@ while player.status == "Palaa kotiisi nukkumaan":
 
 if kirjat in player.inventory:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(splitter + divide("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ★ ☆"))
+        input(fancyLine + divide("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ★ ☆"))
     else:
-        input(splitter + divide("Rakensit koulun ja koulutuksen laatu on erinomaista. Uusien tilojen ansiosta oppilailla on viihtyisämpää koulussa. Pisteet: ★ ★ ★"))
+        input(fancyLine + divide("Rakensit koulun ja koulutuksen laatu on erinomaista. Uusien tilojen ansiosta oppilailla on viihtyisämpää koulussa. Pisteet: ★ ★ ★"))
 else:
     if keskusta not in romua.usedIn and pelto not in romua.usedIn:
-        input(splitter + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ☆ ☆"))
+        input(fancyLine + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta Pisteet: ★ ☆ ☆"))
     else:
-        input(splitter + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. Pisteet: ★ ★ ☆"))
+        input(fancyLine + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. Pisteet: ★ ★ ☆"))
