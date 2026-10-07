@@ -73,12 +73,15 @@ class User:
 
     def new_game(self):
         if os.path.exists("peliprojekti/game_data.json"):
-            choice = input(divide("Haluatko varmasti aloittaa uuden pelin? Sinulla on keskeneräinen peli."))
+            clear_shell()
+            choice = input('╭──────────────────────────────────────────────╮ \n│ Haluatko varmasti aloittaa uuden pelin?      │ \n│ Sinulla on keskeneräinen tallennus.          │ \n╰──────────────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
             if choice.lower() == "ok":
                 os.remove("peliprojekti/game_data.json")
             else:
                 self.main_menu()
+                return
 
+        # Luodaan uusi pelaaja
         player.name = input("  Nimi: ")
         player.age = input("  Ikä:  ")
         while True:
@@ -122,7 +125,7 @@ class User:
                 self.move()
 
 
-    # Nykyisen sijainnin tutkiminen
+    # Sijainnin tutkiminen
     def search(self):
         input(fancyLine + divide(self.location.searchText))
         if self.location.hasItem == []:
@@ -188,25 +191,28 @@ class User:
 
     # Päävalikko
     def main_menu(self):
+        clear_shell()
         hasSave = os.path.exists("peliprojekti/game_data.json")
         if hasSave:
-            choice = input("1. Uusi peli \n2. Jatka peliä \n3. Näytä ohjeet \n4. Sulje sovellus")
+            choice = input("╭────────────────────────────────────────────────────╮ \n│                OPERAATIO PERUSKOULU                │ \n│                     ──◇ ◆ ◇──                      │ \n│                TEKIJÄ: Tuomas Soini                │ \n╰────────────────────────────────────────────────────╯ \n\n  [1] = Uusi peli \n  [2] = Jatka peliä \n  [3] = Avaa ohjeet \n  [4] = Sulje sovellus \n\n  Valitse toiminto: ")
         else:
-            choice = input("1. Uusi peli. \n2. Näytä ohjeet \n3. Sulje sovellus")
+            choice = input("╭────────────────────────────────────────────────────╮ \n│                OPERAATIO PERUSKOULU                │ \n│                     ──◇ ◆ ◇──                      │ \n│                TEKIJÄ: Tuomas Soini                │ \n╰────────────────────────────────────────────────────╯ \n\n  [1] = Uusi peli \n  [2] = Jatka peliä \n  [3] = Sulje sovellus \n\n  Valitse toiminto: ")
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
             self.load_game()
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
+            clear_shell()
             input("Ohjeet tulee tähän")
             self.main_menu()
         elif (hasSave and choice == "4") or (not hasSave and choice == "3"):
-            confirm = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
-            if confirm.lower() == "ok":
+            clear_shell()
+            choice = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            if choice.lower() == "ok":
                 exit()
             self.main_menu()
         else:
-            input("Toimintoa ei löytynyt.")
+            input(f"{fancyLine}  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero.")
             self.main_menu()
 
 
@@ -227,8 +233,8 @@ class User:
             self.inv_show()
         elif choice == "4":
             clear_shell()
-            confirm = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
-            if confirm.lower() == "ok":
+            choice = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            if choice.lower() == "ok":
                 self.save_game()
                 exit()
             return("Restart")
