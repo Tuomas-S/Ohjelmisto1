@@ -1,9 +1,9 @@
 from items import *
 
 class Location:
-    def __init__(self, name, lookupText, isLocked, lockedText, hasItem, acceptsItem, connections = None):
+    def __init__(self, name, searchText, isLocked, lockedText, hasItem, acceptsItem, connections = None):
         self.name = name # sijainnin nimi
-        self.lookupText = lookupText # tämä tulostetaan kun sijaintia tutkitaan
+        self.searchText = searchText # tämä tulostetaan kun sijaintia tutkitaan
         self.isLocked = isLocked # onko pelaajalla pääsyä sijaintiin vai ei
         self.lockedText = lockedText # tämä tulostuu jos koitetaan siirtyä lukittuun sijaintiin
         self.hasItem = hasItem # sijainnista löytyvät esineet (lista)
@@ -14,7 +14,7 @@ class Location:
     def to_dictionary(self):
         return {
             "name": self.name,
-            "lookupText": self.lookupText,
+            "searchText": self.searchText,
             "isLocked": self.isLocked,
             "lockedText": self.lockedText,
             "hasItem": [item.name for item in self.hasItem],
@@ -25,7 +25,7 @@ class Location:
 
 keskusta = Location(
     name = "Keskusta",
-    lookupText = "Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin ajastasi luonnossa.",
+    searchText = "Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin ajastasi luonnossa.",
     isLocked = True,
     lockedText = "Pakkaa tavarasi mukaan ennen keskustaan suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy sekä kartta että rakennuslupa.",
     hasItem = [],
@@ -35,7 +35,7 @@ keskusta = Location(
 
 koti = Location(
     name = "Koti",
-    lookupText = "Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.",
+    searchText = "Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.",
     isLocked = False,
     lockedText = "Rahoja etsiessä työnsit vahingossa kellarin oven kiinni ja lukitsit sen. Olet jumissa...",
     hasItem = [kartta, rakennuslupa],
@@ -45,7 +45,7 @@ koti = Location(
 
 kellari = Location(
     name = "Kellari",
-    lookupText = "Ikivanha hämärä kellarisi haisee tunkkaiselta. Toivottavasti ei ole mitään homeongelmia tai muuten voi tulla kalliiksi.",
+    searchText = "Ikivanha hämärä kellarisi haisee tunkkaiselta. Toivottavasti ei ole mitään homeongelmia tai muuten voi tulla kalliiksi.",
     isLocked = False,
     lockedText = "Huhhuh. Tonne ei kannata enää mennä.",
     hasItem = [],
@@ -55,7 +55,7 @@ kellari = Location(
 
 kuja = Location(
     name = "Kuja",
-    lookupText = 'Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee "Koti, Kauppa, Keskusta, Pelto, Kuja".',
+    searchText = 'Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee "Koti, Kauppa, Keskusta, Pelto, Kuja".',
     isLocked = True,
     lockedText = "Kujalle vievä portti on muurattu kiinni laudoilla. Koitat repiä niitä irti mutta naulat ovat liian lujasti kiinni.",
     hasItem = [],
@@ -65,7 +65,7 @@ kuja = Location(
 
 metsä = Location(
     name = "Metsä",
-    lookupText = "Tunnet raikkaan ilman keuhkoissasi ja nenääsi tunkeutuu ihana luonnon tuoksu. Ehkä joku päivä voisit tulla tänne telttaretkelle.",
+    searchText = "Tunnet raikkaan ilman keuhkoissasi ja nenääsi tunkeutuu ihana luonnon tuoksu. Ehkä joku päivä voisit tulla tänne telttaretkelle.",
     isLocked = True,
     lockedText = "Pakkaa tavarasi mukaan ennen metsään suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy sekä kartta että rakennuslupa.",
     hasItem = [],
@@ -75,9 +75,9 @@ metsä = Location(
 
 kauppa = Location(
     name = "Kauppa",
-    lookupText = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja.",
+    searchText = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja.",
     isLocked = False,
-    lockedText = "Sinun kannattaa hakea kotoa rahaa ennen kauppaan palaamista.",
+    lockedText = "Sinun kannattaa hakea kotoasi rahaa ennen kauppaan palaamista.",
     hasItem = [],
     acceptsItem = [],
     connections = []
@@ -85,7 +85,7 @@ kauppa = Location(
 
 raunio = Location(
     name = "Raunio",
-    lookupText = "Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä.",
+    searchText = "Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä.",
     isLocked = False,
     lockedText = "Ei ole lukittu",
     hasItem = [],
@@ -95,7 +95,7 @@ raunio = Location(
 
 varasto = Location(
     name = "Varasto",
-    lookupText = "Laitat varaston valot päälle. Tomua kaikkialla. Et välttämättä halua lorvailla täällä turhan kauaa ellet halua tuberkuloosia.",
+    searchText = "Laitat varaston valot päälle. Tomua kaikkialla. Et välttämättä halua lorvailla täällä turhan kauaa ellet halua tuberkuloosia.",
     isLocked = True,
     lockedText = "Rakennuksen ovi on lukossa. Anna 5-numeroinen koodi päästäksesi sisään: ",
     hasItem = [kirjat],
@@ -105,7 +105,7 @@ varasto = Location(
 
 pelto = Location(
     name = "Pelto",
-    lookupText = "Tämä pelto ei ole mikään kaunein nähtävyys. Enemmän sitä voisi kutsua ryteiköksi tai vaikka taistelukentäksi.",
+    searchText = "Tämä pelto ei ole mikään kaunein nähtävyys. Enemmän sitä voisi kutsua ryteiköksi tai vaikka taistelukentäksi.",
     isLocked = False,
     lockedText = "Ei ole lukittu",
     hasItem = [],
@@ -115,7 +115,7 @@ pelto = Location(
 
 vaja = Location(
     name = "Vaja",
-    lookupText = "Haistat jotain mätääntynyttä. Et muista milloin viimeksi olisit käynyt täällä.",
+    searchText = "Haistat jotain mätääntynyttä. Et muista milloin viimeksi olisit käynyt täällä.",
     isLocked = True,
     lockedText = "Tirkistelet lautojen välistä vajan sisään. Näet kottikärryt sekä haravan. Ovi on lukittu, mutta avaimen pitäisi löytyä kotoasi.",
     hasItem = [kärryt, harava],

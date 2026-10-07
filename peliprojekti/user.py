@@ -71,41 +71,60 @@ class User:
         self.status = userData["status"]
         self.inventory = [itemLookup[itemName] for itemName in userData["inventory"]]
 
+    def new_game(self):
+        if os.path.exists("peliprojekti/game_data.json"):
+            choice = input(divide("Haluatko varmasti aloittaa uuden pelin? Sinulla on keskeneräinen peli."))
+            if choice.lower() == "ok":
+                os.remove("peliprojekti/game_data.json")
+            else:
+                self.main_menu()
+
+        player.name = input("  Nimi: ")
+        player.age = input("  Ikä:  ")
+        while True:
+            try:
+                int(player.age)
+            except ValueError:
+                player.age = input("  Anna ikä numerona: ")
+            else:
+                break
+        player.age = int(player.age)
+        if player.age < 12:
+            input("\n  Olet alaikäinen, suljetaan sovellus...")
+            exit()
+        else:
+            input(f"\n  Tervetuloa {player.name}! \n  [enter] = aloita peli")
+            clear_shell()
 
     # Pelaajan liikkuminen
     def move(self):
-        hasMoved = False
-        while hasMoved == False:
-            clear_shell()
-            print("╭─────────────────────────────────────────────╮ \n│ Voit siirtyä seuraaviin paikkoihin:         │")
+        clear_shell()
+        print("╭─────────────────────────────────────────────╮ \n│ Voit siirtyä seuraaviin paikkoihin:         │")
+        for location in self.location.connections:
+            print(f"│ » {location.name:<42}│")
+        choice = input("╰─────────────────────────────────────────────╯ \n\n  Liiku paikkaan kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
+        if choice != "":
             for location in self.location.connections:
-                print(f"│ » {location.name:<42}│")
-            choice = input("╰─────────────────────────────────────────────╯ \n\n  Liiku paikkaan kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
-            if choice == "":
-                hasMoved = True
-
-            else:
-                for location in self.location.connections:
-                    if choice.lower() == location.name.lower():
-                        if location.isLocked:
-                            code = input(fancyLine + divide(location.lockedText))
-                            if self.location == kuja and code == "52971" and varasto.isLocked == True:
-                                varasto.isLocked = False
-                                kuja.lookupText = "Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta."
-                                input("\n» Lukko aukeaa.")
-                            break
-                        print("  Siirrytään...")
-                        time.sleep(random.randrange(1, 3))
-                        self.location = location
-                        hasMoved = True
+                if choice.lower() == location.name.lower():
+                    if location.isLocked:
+                        code = input(f"{fancyLine} {divide(location.lockedText)} ")
+                        if self.location == kuja and code == "52971" and varasto.isLocked == True:
+                            varasto.isLocked = False
+                            kuja.searchText = "Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta."
+                            input("\n» Lukko aukeaa. Oletko koskaan miettinyt etsiväksi ryhtymistä?")
                         break
-                else:
-                    input(f"{fancyLine}  Sijaintia ei löytynyt.")
+                    print("  Siirrytään...")
+                    time.sleep(random.randrange(1, 3))
+                    self.location = location
+                    break
+            else:
+                input(f"{fancyLine}  Sijaintia ei löytynyt.")
+                self.move()
 
 
     # Nykyisen sijainnin tutkiminen
-    def lookup(self):
-        input(fancyLine + divide(self.location.lookupText))
+    def search(self):
+        input(fancyLine + divide(self.location.searchText))
         if self.location.hasItem == []:
             input("\n  Et löytänyt alueelta mitään mukaan otettavaa.")
             clear_shell()
@@ -125,17 +144,17 @@ class User:
                     if item in self.location.acceptsItem:
                         if self.location in item.usedIn:
                             input(f"{fancyLine}  Olet jo käyttänyt esineen tässä paikassa.")
-                            return(False)
+                            break
                         print("  Käytetään esine...")
                         time.sleep(random.randrange(1, 3))
                         input(fancyLine + divide(item.usedText))
                         item.usedIn.append(self.location)
                         if item.isSingleUse:
                             self.inventory.remove(item)
-                        return(True)
+                        break
                     else:
                         input(fancyLine + divide(item.itemNotUsed))
-                        return(False)
+                        self.inv_show()
 
                 else:
                     print("  Käytetään esine...")
@@ -145,64 +164,81 @@ class User:
                         print(f"\n{kartta.usedText}")
                         print(f"{fancyLine}{divide("Kartta kaikista kaupungin sijainneista. Jotkut sijainnit eivät ole aina saatavilla.")}\n")
                         input(f"» Nykyinen sijaintisi: {self.location.name}")
-                        return(False)
+                        break
                     else:
                         input(fancyLine + divide(item.usedText))
-                    return(True)
         else:
             input(f"{fancyLine}  Esinettä ei löytynyt inventaariostasi.")
-            return(False)
+            self.inv_show()
 
         
     # Inventaario ja esineen valinta
     def inv_show(self):
-        itemWasUsed = False
-        while itemWasUsed == False:
-            clear_shell()
-            if self.inventory == []:
-                input("╭───────────────────────────────────────╮ \n│ Inventaariosi on tyhjä.               │ \n│ Täältä näet löytämäsi esineet.        │ \n╰───────────────────────────────────────╯ \n\n  [enter] = takaisin")
-                break
-            else:
-                print("╭─────────────────────────────────────────╮ \n│ Inventaariossasi on:                    │")
-                for item in self.inventory:
-                    print(f"│ » {item.name:<38}│")
-                choice = input("╰─────────────────────────────────────────╯ \n\n  Käytä esine kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
-                if choice == "":
-                    clear_shell()
-                    break
-                else:
-                    itemWasUsed = self.item_use(choice)
-                    clear_shell()
-
-    
-    # Pelin sisäinen valikko
-    def menu(self, mission):
         clear_shell()
-        print(f"╭─────────────────────────────────────────────────────╮ \n│ [⌂] SIJAINTI: {self.location.name:<38}│ \n│ [≡] TEHTÄVÄ:  {mission:<38}│ \n╰─────────────────────────────────────────────────────╯ \n\n  [1] = Vaihda sijaintia \n  [2] = Tutki aluetta \n  [3] = Avaa inventaario \n  [4] = Takaisin valikkoon")
+        if self.inventory == []:
+            input("╭───────────────────────────────────────╮ \n│ Inventaariosi on tyhjä.               │ \n│ Täältä näet löytämäsi esineet.        │ \n╰───────────────────────────────────────╯ \n\n  [enter] = takaisin")
+            self.inv_show()
+        else:
+            print("╭─────────────────────────────────────────╮ \n│ Inventaariossasi on:                    │")
+            for item in self.inventory:
+                print(f"│ » {item.name:<38}│")
+            choice = input("╰─────────────────────────────────────────╯ \n\n  Käytä esine kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
+            if choice != "":
+                self.item_use(choice)
+
+    # Päävalikko
+    def main_menu(self):
+        hasSave = os.path.exists("peliprojekti/game_data.json")
+        if hasSave:
+            choice = input("1. Uusi peli \n2. Jatka peliä \n3. Näytä ohjeet \n4. Sulje sovellus")
+        else:
+            choice = input("1. Uusi peli. \n2. Näytä ohjeet \n3. Sulje sovellus")
+        if choice == "1":
+            self.new_game()
+        elif hasSave and choice == "2":
+            self.load_game()
+        elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
+            input("Ohjeet tulee tähän")
+            self.main_menu()
+        elif (hasSave and choice == "4") or (not hasSave and choice == "3"):
+            confirm = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            if confirm.lower() == "ok":
+                exit()
+            self.main_menu()
+        else:
+            input("Toimintoa ei löytynyt.")
+            self.main_menu()
+
+
+    # Pelin sisäinen valikko
+    def game_menu(self, mission):
+        clear_shell()
+        print(f"╭─────────────────────────────────────────────────────╮ \n│ [⌂] SIJAINTI: {self.location.name:<38}│ \n│ [≡] TEHTÄVÄ:  {mission:<38}│ \n╰─────────────────────────────────────────────────────╯ \n\n  [1] = Vaihda sijaintia \n  [2] = Tutki aluetta \n  [3] = Avaa inventaario \n  [4] = Sulje sovellus")
         choice = input("\n  Valitse toiminto: ")
         if choice == "1":
             self.move()
         elif choice == "2":
             print("  Tutkitaan aluetta...")
             time.sleep(random.randrange(1,3))
-            self.lookup()
+            self.search()
         elif choice == "3":
             print("  Avataan inventaario...")
             time.sleep(1)
             self.inv_show()
         elif choice == "4":
             clear_shell()
-            confirm = input('╭────────────────────────────────────╮ \n│ Tallenna ja sulje peli             │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            confirm = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
             if confirm.lower() == "ok":
                 self.save_game()
                 exit()
+            return("Restart")
         else:
             input(f"{fancyLine}  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero.")
 
 # Luodaan pelaaja self, name, age, location, status, inventory
 player = User(
     name = "",
-    age = "",
+    age = 0,
     location = koti,
     status = "Pakkaa tavarasi mukaan",
     inventory = []
