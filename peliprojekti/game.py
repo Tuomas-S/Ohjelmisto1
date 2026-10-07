@@ -159,8 +159,8 @@ while True:
                 confirm = input('\n» Kirjoita "Zzz" nukahtaaksesi: ')
         player.status = "Peli läpäisty"
 
+    clear_shell()
     if kirjat in player.inventory:
-        clear_shell()
         if keskusta not in romua.usedIn and pelto not in romua.usedIn:
             input(fancyLine + divide("Rakensit koulun ja koulutuksen laatu on erinomaista. Kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta. \n\n  Pisteet: ★ ★ ☆"))
         else:

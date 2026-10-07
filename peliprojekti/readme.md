@@ -1,4 +1,4 @@
-# Projekti: Peruskoulu
+# Operaatio Peruskoulu
 
 **Tuomas Soini**
 

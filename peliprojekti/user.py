@@ -74,7 +74,13 @@ class User:
     def new_game(self):
         if os.path.exists("peliprojekti/game_data.json"):
             clear_shell()
-            choice = input('╭──────────────────────────────────────────────╮ \n│ Haluatko varmasti aloittaa uuden pelin?      │ \n│ Sinulla on keskeneräinen tallennus.          │ \n╰──────────────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            choice = input("╭──────────────────────────────────────────────╮ \n"
+                           "│ Haluatko varmasti aloittaa uuden pelin?      │ \n"
+                           "│ Sinulla on keskeneräinen tallennus.          │ \n"
+                           "╰──────────────────────────────────────────────╯ \n\n"
+                           '  Kirjoita "ok" vahvistaaksesi. \n'
+                           "  [enter] = peruuta \n\n"
+                           "  Valitse toiminto: ")
             if choice.lower() == "ok":
                 os.remove("peliprojekti/game_data.json")
             else:
@@ -102,10 +108,14 @@ class User:
     # Pelaajan liikkuminen
     def move(self):
         clear_shell()
-        print("╭─────────────────────────────────────────────╮ \n│ Voit siirtyä seuraaviin paikkoihin:         │")
+        print("╭─────────────────────────────────────────────╮ \n"
+              "│ Voit siirtyä seuraaviin paikkoihin:         │")
         for location in self.location.connections:
             print(f"│ » {location.name:<42}│")
-        choice = input("╰─────────────────────────────────────────────╯ \n\n  Liiku paikkaan kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
+        choice = input("╰─────────────────────────────────────────────╯ \n\n"
+                       "  Liiku paikkaan kirjoittamalla sen nimi. \n"
+                       "  [enter] = takaisin \n\n"
+                       "  Valitse toiminto: ")
         if choice != "":
             for location in self.location.connections:
                 if choice.lower() == location.name.lower():
@@ -179,13 +189,21 @@ class User:
     def inv_show(self):
         clear_shell()
         if self.inventory == []:
-            input("╭───────────────────────────────────────╮ \n│ Inventaariosi on tyhjä.               │ \n│ Täältä näet löytämäsi esineet.        │ \n╰───────────────────────────────────────╯ \n\n  [enter] = takaisin")
+            input("╭───────────────────────────────────────╮ \n"
+                  "│ Inventaariosi on tyhjä.               │ \n"
+                  "│ Täältä näet löytämäsi esineet.        │ \n"
+                  "╰───────────────────────────────────────╯ \n\n"
+                  "  [enter] = takaisin")
             self.inv_show()
         else:
-            print("╭─────────────────────────────────────────╮ \n│ Inventaariossasi on:                    │")
+            print("╭─────────────────────────────────────────╮ \n"
+                  "│ Inventaariossasi on:                    │")
             for item in self.inventory:
                 print(f"│ » {item.name:<38}│")
-            choice = input("╰─────────────────────────────────────────╯ \n\n  Käytä esine kirjoittamalla sen nimi. \n  [enter] = takaisin \n\n  Valitse toiminto: ")
+            choice = input("╰─────────────────────────────────────────╯ \n\n"
+                           "  Käytä esine kirjoittamalla sen nimi. \n"
+                           "  [enter] = takaisin \n\n"
+                           "  Valitse toiminto: ")
             if choice != "":
                 self.item_use(choice)
 
@@ -194,9 +212,26 @@ class User:
         clear_shell()
         hasSave = os.path.exists("peliprojekti/game_data.json")
         if hasSave:
-            choice = input("╭────────────────────────────────────────────────────╮ \n│                OPERAATIO PERUSKOULU                │ \n│                     ──◇ ◆ ◇──                      │ \n│                TEKIJÄ: Tuomas Soini                │ \n╰────────────────────────────────────────────────────╯ \n\n  [1] = Uusi peli \n  [2] = Jatka peliä \n  [3] = Avaa ohjeet \n  [4] = Sulje sovellus \n\n  Valitse toiminto: ")
+            choice = input("╭────────────────────────────────────────────────────╮ \n"
+                           "│                OPERAATIO PERUSKOULU                │ \n"
+                           "│                     ──◇ ◆ ◇──                      │ \n"
+                           "│                TEKIJÄ: Tuomas Soini                │ \n"
+                           "╰────────────────────────────────────────────────────╯ \n\n"
+                           "  [1] = Uusi peli \n"
+                           "  [2] = Jatka peliä \n"
+                           "  [3] = Avaa ohjeet \n"
+                           "  [4] = Sulje sovellus \n\n"
+                           "  Valitse toiminto: ")
         else:
-            choice = input("╭────────────────────────────────────────────────────╮ \n│                OPERAATIO PERUSKOULU                │ \n│                     ──◇ ◆ ◇──                      │ \n│                TEKIJÄ: Tuomas Soini                │ \n╰────────────────────────────────────────────────────╯ \n\n  [1] = Uusi peli \n  [2] = Jatka peliä \n  [3] = Sulje sovellus \n\n  Valitse toiminto: ")
+            choice = input("╭────────────────────────────────────────────────────╮ \n"
+                           "│                OPERAATIO PERUSKOULU                │ \n"
+                           "│                     ──◇ ◆ ◇──                      │ \n"
+                           "│                TEKIJÄ: Tuomas Soini                │ \n"
+                           "╰────────────────────────────────────────────────────╯ \n\n"
+                           "  [1] = Uusi peli \n"
+                           "  [2] = Jatka peliä \n"
+                           "  [3] = Sulje sovellus \n\n"
+                           "  Valitse toiminto: ")
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
@@ -207,7 +242,12 @@ class User:
             self.main_menu()
         elif (hasSave and choice == "4") or (not hasSave and choice == "3"):
             clear_shell()
-            choice = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            choice = input("╭────────────────────────────────────╮ \n"
+                           "│ Haluatko sulkea sovelluksen?       │ \n"
+                           "╰────────────────────────────────────╯ \n\n"
+                           '  Kirjoita "ok" vahvistaaksesi. \n'
+                           "  [enter] = peruuta \n\n"
+                           "  Valitse toiminto: ")
             if choice.lower() == "ok":
                 exit()
             self.main_menu()
@@ -219,8 +259,15 @@ class User:
     # Pelin sisäinen valikko
     def game_menu(self, mission):
         clear_shell()
-        print(f"╭─────────────────────────────────────────────────────╮ \n│ [⌂] SIJAINTI: {self.location.name:<38}│ \n│ [≡] TEHTÄVÄ:  {mission:<38}│ \n╰─────────────────────────────────────────────────────╯ \n\n  [1] = Vaihda sijaintia \n  [2] = Tutki aluetta \n  [3] = Avaa inventaario \n  [4] = Sulje sovellus")
-        choice = input("\n  Valitse toiminto: ")
+        choice = input(f"╭─────────────────────────────────────────────────────╮ \n"
+                        "│ [⌂] SIJAINTI: {self.location.name:<38}│ \n"
+                        "│ [≡] TEHTÄVÄ:  {mission:<38}│ \n"
+                        "╰─────────────────────────────────────────────────────╯ \n\n"
+                        "  [1] = Vaihda sijaintia \n"
+                        "  [2] = Tutki aluetta \n"
+                        "  [3] = Avaa inventaario \n"
+                        "  [4] = Sulje sovellus \n\n"
+                        "  Valitse toiminto: ")
         if choice == "1":
             self.move()
         elif choice == "2":
@@ -233,7 +280,12 @@ class User:
             self.inv_show()
         elif choice == "4":
             clear_shell()
-            choice = input('╭────────────────────────────────────╮ \n│ Haluatko sulkea sovelluksen?       │ \n╰────────────────────────────────────╯ \n\n  Kirjoita "ok" vahvistaaksesi. \n  [enter] = peruuta \n\n  Valitse toiminto: ')
+            choice = input("╭────────────────────────────────────╮ \n"
+                           "│ Haluatko sulkea sovelluksen?       │ \n"
+                           "╰────────────────────────────────────╯ \n\n"
+                           '  Kirjoita "ok" vahvistaaksesi. \n'
+                           "  [enter] = peruuta \n\n"
+                           "  Valitse toiminto: ")
             if choice.lower() == "ok":
                 self.save_game()
                 exit()
