@@ -171,7 +171,7 @@ class User:
                         break
                     else:
                         input(fancyLine + divide(item.itemNotUsed))
-                        self.inv_show()
+                        break
 
                 else:
                     print("  Käytetään esine...")
@@ -184,6 +184,7 @@ class User:
                         break
                     else:
                         input(fancyLine + divide(item.usedText))
+                        break
         else:
             input(f"{fancyLine}  Esinettä ei löytynyt inventaariostasi.")
             self.inv_show()
@@ -241,7 +242,11 @@ class User:
             self.load_game("peliprojekti/progress/save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
             clear_shell()
-            input("Ohjeet tulee tähän")
+            with open("peliprojekti/misc/instructions.txt", "r", encoding = "utf-8") as file:
+                data = file.readlines()
+            for line in data:
+                print(line.rstrip("\n"))
+            input(f"{fancyLine} [enter] = takaisin")
             self.main_menu()
         elif (hasSave and choice == "4") or (not hasSave and choice == "3"):
             clear_shell()

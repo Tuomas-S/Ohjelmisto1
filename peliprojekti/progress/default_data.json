@@ -28,7 +28,7 @@
             "type": "Functional",
             "name": "Rakennuslupa",
             "foundText": "Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi.",
-            "usedText": "Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä rakennusmateriaalit.",
+            "usedText": "Pääset vihdoin aloittamaan rakennusprojektisi. Sinulta puuttuu kuitenkin vielä työkalut sekä rakennusmateriaalit.",
             "itemNotUsed": "Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita.",
             "isSingleUse": true,
             "usedIn": []

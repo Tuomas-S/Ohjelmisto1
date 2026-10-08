@@ -1,0 +1,20 @@
+» Pelin tavoitteena on rakentaa koulu. Voit tutkia eri alueita,
+  vaihtaa sijaintia, avata inventaarion ja käyttää sieltä
+  esineitä. Kaikkia esineitä ei voi aina käyttää eikä kaikkiin
+  sijainteihin pääse. Peli kuitenkin kertoo jos näin on.
+
+» Voit valita eri toimintoja kirjoittamalla niitä vastaavat
+  numerot. Valikoissa on kerrottu, mitä eri numerot tekevät tai
+  kerrottu erikseen, mitä pelaajan tulee tehdä edetäkseen. Voit
+  kirjoittaa inventaariossa esineen nimen käyttääksesi sen.
+  Paikkaa vaihtaessa sinun tulee kirjoittaa sijainnin nimi, johon
+  haluat siirtyä.
+
+» Pääset teksteissä eteenpäin painamalla enteriä näppäimistössäsi.
+  Osassa valikoista lukee "[enter] = takaisin", jolloin pääset
+  edelliseen valikkoon painamalla kyseistä näppäintä.
+
+» Peli tallentaa automaattisesti, kun valitset toiminnon "Lopeta
+  peli". Sovelluksen sulkeminen muulla tavalla ei tallenna peliä.
+  Jos pelisi on tallennettu, voit jatkaa siitä mihin jäit
+  valitsemalla "Jatka peliä"
