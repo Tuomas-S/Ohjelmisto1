@@ -154,6 +154,7 @@ while True:
         raunio.searchText = "Metsän laidalla sijaitsee ruhjuinen raunio. Mahtaa olla jokin hylätty tehdas tai muu teollisuusrakennus."
         koti.hasItem.append(yöpuku)
         koti.acceptsItem.append(yöpuku)
+        rakennuslupa.usedIn[0].acceptsItem.append(kirjat)
         player.status = "Palaa kotiisi nukkumaan"
 
     while player.status == "Palaa kotiisi nukkumaan":
@@ -196,19 +197,19 @@ while True:
         time.sleep(1)
         
     clear_shell()
-    if kirjat in player.inventory and romua.usedIn == []:
+    if kirjat.usedIn != [] and romua.usedIn == []:
         score("★ ★ ☆")
-        input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laatu on erinomaista, mutta kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta."))
+        input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laatu on erinomaista, mutta kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden pienestä määrästä."))
         print(f"\n{divide("Resurssisi eivät riittäneet tarpeeksi suuren koulun rakentamiseen sillä rauniolla olleet materiaalit jäivät käyttämättä.")}")
-    elif kirjat in player.inventory and romua.usedIn != []:
+    elif kirjat.usedIn != [] and romua.usedIn != []:
         score("★ ★ ★")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laatu on erinomaista ja kaupungin asukkaat arvostavat tilojen monipuolisuutta."))
         print(f"\n{divide("Kaiken kaikkiaan erinomainen suoritus. Kaupunki maksaa sinulle palkkion hyvästä työstä ja saat tilattua työmiehet tarkistamaan kellarisi hajuongelmat")}")
-    elif kirjat not in player.inventory and romua.usedIn == []:
+    elif kirjat.usedIn == [] and romua.usedIn == []:
         score("★ ☆ ☆")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laadussa on hieman puutteita eivätkä tilat riitä kaikille oppilaille. Voit kuitenkin olla ylpeä aikaansaannistasi."))
         print(f"\n{divide("Rauniolta löytyvät materiaalit jäivät nyt käyttämättä, etkä hankkinut minkäänlaisia oppikirjoja. Onneksi oppimateriaalit voi aina hankkia myöhemmin ja budjetin salliessa tilojakin on mahdollista remontoida.")}")
-    elif kirjat not in player.inventory and romua.usedIn != []:
+    elif kirjat.usedIn == [] and romua.usedIn != []:
         score("★ ★ ☆")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laadussa on hieman puutteita, mutta tiloja on onneksi vaikka muille jakaa."))
         print(f"\n{divide("Onneksi oppikirjoja voi aina hankkia jälkikäteen. Ei sitä voi aina kaikkea muistaa eikä se maailmakaan tähän kaadu.")}")

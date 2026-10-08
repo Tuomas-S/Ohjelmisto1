@@ -79,7 +79,7 @@ kirjat = Functional(
     name = "Kirjat",
     foundText = "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
     usedText = "Laitat kirjat koulun varastotilaan odottamaan koulun avauspäivää.",
-    itemNotUsed = "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Ne kannattaa viedä koululle",
+    itemNotUsed = "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Ne kannattaa viedä koululle heti kun olet saanut sen rakennettua.",
     isSingleUse = True,
     usedIn = []
     )

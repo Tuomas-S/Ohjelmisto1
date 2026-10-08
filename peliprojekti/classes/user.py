@@ -125,7 +125,7 @@ class User:
             for location in self.location.connections:
                 if choice.lower() == location.name.lower():
                     if location.isLocked:
-                        code = input(fancyLine + divide(location.lockedText))
+                        code = input(f"{fancyLine}{divide(location.lockedText)} ")
                         if self.location == kuja and code == "52971" and varasto.isLocked == True:
                             varasto.isLocked = False
                             kuja.searchText = "Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta."
