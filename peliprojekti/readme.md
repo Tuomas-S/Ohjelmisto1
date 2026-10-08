@@ -5,8 +5,7 @@
 ## Idea
 
 Pelin idea on suorittaa erilaisia tehtäviä, jotka koostuvat esineiden hankkimisesta ja käyttämisestä sekä sijainteihin liikkumisesta.  
-Päätarinan lisäksi pelaaja voi löytää ylimääräisiä esineitä ja sijainteja, joiden avulla  
-pelaaja voi kerätä lisäpisteitä.
+Päätarinan lisäksi pelaaja voi löytää ylimääräisiä esineitä ja sijainteja, joiden avulla pelaaja voi kerätä lisäpisteitä.
 
 ## Tavoite
 
