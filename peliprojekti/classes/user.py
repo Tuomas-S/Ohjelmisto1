@@ -34,6 +34,7 @@ class User:
         with open(Path(__file__).parents[1]/"progress"/"save_data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
+
     # Pelin lataus
     def load_game(self, path):
         with open(path, "r", encoding="utf-8") as file:
@@ -72,6 +73,8 @@ class User:
         self.status = userData["status"]
         self.inventory = [itemLookup[itemName] for itemName in userData["inventory"]]
 
+
+    # Uuden pelin aloittaminen
     def new_game(self):
         if os.path.exists("peliprojekti/progress/save_data.json"):
             clear_shell()
@@ -87,8 +90,7 @@ class User:
             else:
                 self.main_menu()
                 return
-
-        # Luodaan uusi pelaaja
+            
         clear_shell()
         print("╭────────────────────────────────╮ \n"
               "│ Luodaan uusi profiili.         │ \n"
@@ -103,12 +105,14 @@ class User:
             else:
                 break
         player.age = int(player.age)
+
         if player.age < 12:
             input(f"{fancyLine}  Olet alaikäinen, suljetaan sovellus...")
             exit()
         else:
             input(f"{fancyLine}  Tervetuloa {player.name}! \n  [enter] = aloita peli")
             clear_shell()
+
 
     # Pelaajan liikkuminen
     def move(self):
@@ -121,6 +125,7 @@ class User:
                        "  Liiku paikkaan kirjoittamalla sen nimi. \n"
                        "  [enter] = takaisin \n\n"
                        "  Valitse toiminto: ")
+        
         if choice != "":
             for location in self.location.connections:
                 if choice.lower() == location.name.lower():
@@ -200,6 +205,7 @@ class User:
                   "│ Täältä näet löytämäsi esineet.        │ \n"
                   "╰───────────────────────────────────────╯ \n\n"
                   "  [enter] = takaisin")
+            
         else:
             print("╭─────────────────────────────────────────╮ \n"
                   "│ Inventaariossasi on:                    │")
@@ -211,6 +217,7 @@ class User:
                            "  Valitse toiminto: ")
             if choice != "":
                 self.item_use(choice)
+
 
     # Päävalikko
     def main_menu(self):
@@ -227,6 +234,7 @@ class User:
                            "  [3] = Avaa ohjeet \n"
                            "  [4] = Sulje sovellus \n\n"
                            "  Valitse toiminto: ")
+            
         else:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
@@ -237,6 +245,7 @@ class User:
                            "  [2] = Avaa ohjeet \n"
                            "  [3] = Sulje sovellus \n\n"
                            "  Valitse toiminto: ")
+            
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
@@ -300,6 +309,7 @@ class User:
                 exit()
         else:
             input(f"{fancyLine}  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero.")
+
 
 # Luodaan pelaaja self, name, age, location, status, inventory
 player = User(
