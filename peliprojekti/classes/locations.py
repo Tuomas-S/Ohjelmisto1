@@ -45,7 +45,7 @@ koti = Location(
 
 kellari = Location(
     name = "Kellari",
-    searchText = "Ikivanha hämärä kellarisi haisee tunkkaiselta. Toivottavasti ei ole mitään homeongelmia tai muuten voi tulla kalliiksi.",
+    searchText = "Rähjäinen hämärä kellarisi haisee tunkkaiselta. Toivottavasti ei ole mitään homeongelmia tai muuten voi tulla kalliiksi.",
     isLocked = False,
     lockedText = "Huhhuh. Tonne ei kannata enää mennä.",
     hasItem = [],

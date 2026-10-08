@@ -1,5 +1,6 @@
 from classes.user import *
 from misc.text_format import *
+from pathlib import Path
 
 # Ympäristön muuttaminen
 def check_environment(player):
@@ -41,7 +42,7 @@ while True:
             player.game_menu(player.status)
         if keskusta in rakennuslupa.usedIn:
             keskusta.acceptsItem.extend([materiaalit, romua])
-            keskusta.searchText = "Rakennustyömaasi kohoaa uljaasti keskustan ytimessä. Tästä tulee vielä hieno koulu."
+            keskusta.searchText = "Rakennustyömaasi kohoaa uljaasti kaupungin ytimessä. Tästä tulee vielä hieno koulu."
             kauppa.searchText = "Kaupan hyllyt ovat täynnä rakennusmateriaaleja. Huomaat kuitenkin, että unohdit rahasi kotiin."
             player.status = "Hanki työkalut ja materiaalit"
         if pelto in rakennuslupa.usedIn:
@@ -88,7 +89,7 @@ while True:
         keskusta.acceptsItem.append(romua)
         kauppa.isLocked = False
         koti.isLocked = True
-        sorkkarauta.usedText = "Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Melkein kävi huonosti."
+        sorkkarauta.usedText = "Revit oven hajalle sorkkaraudalla ja näet taas päivänvaloa. Onneksi ei käynyt pahemmin. Voit nyt palata kauppaan."
         työkalut.usedText = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Koitat avata kellarin ovea vasaralla, mutta vipuvoima ei yksinkertaisesti riitä. Ehkä kellarista voisi löytyä jotain järeämpää."
         kellari.hasItem.append(sorkkarauta)
         kellari.acceptsItem.append(sorkkarauta)
@@ -114,6 +115,7 @@ while True:
                 koti.isLocked = False
                 sorkkarauta.usedText = "Sorkkarauta uppoaa hyvin kujaa peittävien lautojen alle. Saat kangettua naulat irti ja avaat reitin kujalle."
         työkalut.usedText = "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."
+        kellari.isLocked = True
         kauppa.hasItem.extend([kärryt, materiaalit])
         player.status = "Osta rakennustarvikkeet"
 
@@ -161,36 +163,57 @@ while True:
             player.game_menu(player.status)
             check_environment(player)
             if koti in yöpuku.usedIn:
-                confirm = input('\n» Kirjoita "Zzz" nukahtaaksesi: ')
+                confirm = input('\n  Kirjoita "Zzz" nukahtaaksesi: ')
+                if confirm.lower() != "zzz":
+                    input(fancyLine + divide("Nyt on kuorsaus kyllä niin epävireessä ettet saa millään nukuttua yön yli."))
+        print("  Nukutaan...")
+        time.sleep(3)
         player.status = "Peli läpäisty"
 
     def score(stars):
+        print("╭──────────────────────────────────────╮ \n"
+              "│ OPERAATIO: Peruskoulu                │ \n"
+              "│ TILA:                                │ \n"
+              "│ PISTEET:                             │ \n"
+              "╰──────────────────────────────────────╯"
+        )
+        time.sleep(1)
+        clear_shell()
+        print("╭──────────────────────────────────────╮ \n"
+              "│ OPERAATIO: Peruskoulu                │ \n"
+              "│ TILA:      Tehtävä suoritettu!       │ \n"
+              "│ PISTEET:                             │ \n"
+              "╰──────────────────────────────────────╯"
+        )
+        time.sleep(1)
+        clear_shell()
         print("╭──────────────────────────────────────╮ \n"
               "│ OPERAATIO: Peruskoulu                │ \n"
               "│ TILA:      Tehtävä suoritettu!       │ \n"
              f"│ PISTEET:   {stars}                     │ \n"
               "╰──────────────────────────────────────╯"
         )
+        time.sleep(1)
         
     clear_shell()
     if kirjat in player.inventory and romua.usedIn == []:
         score("★ ★ ☆")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laatu on erinomaista, mutta kaupungin asukkaat kuitenkin valittavat tilojen ja luokkahuoneiden puutteesta."))
-        input(f"\n{divide("Resurssisi eivät riittäneet tarpeeksi suuren koulun rakentamiseen sillä rauniolla olleet materiaalit jäivät käyttämättä.")}")
+        print(f"\n{divide("Resurssisi eivät riittäneet tarpeeksi suuren koulun rakentamiseen sillä rauniolla olleet materiaalit jäivät käyttämättä.")}")
     elif kirjat in player.inventory and romua.usedIn != []:
         score("★ ★ ★")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laatu on erinomaista ja kaupungin asukkaat arvostavat tilojen monipuolisuutta."))
-        input(f"\n{divide("Kaiken kaikkiaan erinomainen suoritus. Kaupunki maksaa sinulle palkkion hyvästä työstä ja saat tilattua työmiehet tarkistamaan kellarisi hajuongelmat")}")
+        print(f"\n{divide("Kaiken kaikkiaan erinomainen suoritus. Kaupunki maksaa sinulle palkkion hyvästä työstä ja saat tilattua työmiehet tarkistamaan kellarisi hajuongelmat")}")
     elif kirjat not in player.inventory and romua.usedIn == []:
         score("★ ☆ ☆")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laadussa on hieman puutteita eivätkä tilat riitä kaikille oppilaille. Voit kuitenkin olla ylpeä aikaansaannistasi."))
-        input(f"\n{divide("Rauniolta löytyvät materiaalit jäivät nyt käyttämättä, etkä hankkinut minkäänlaisia oppikirjoja. Onneksi oppimateriaalit voi aina hankkia myöhemmin ja budjetin salliessa tilojakin on mahdollista remontoida.")}")
+        print(f"\n{divide("Rauniolta löytyvät materiaalit jäivät nyt käyttämättä, etkä hankkinut minkäänlaisia oppikirjoja. Onneksi oppimateriaalit voi aina hankkia myöhemmin ja budjetin salliessa tilojakin on mahdollista remontoida.")}")
     elif kirjat not in player.inventory and romua.usedIn != []:
         score("★ ★ ☆")
         input(fancyLine + divide(f"Onneksi olkoon {player.name}, sait koulun rakennettua! Koulutuksen laadussa on hieman puutteita, mutta tiloja on onneksi vaikka muille jakaa."))
-        input(f"\n{divide("Onneksi oppikirjoja voi aina hankkia jälkikäteen. Ei sitä voi aina kaikkea muistaa eikä se maailmakaan tähän kaadu.")}")
+        print(f"\n{divide("Onneksi oppikirjoja voi aina hankkia jälkikäteen. Ei sitä voi aina kaikkea muistaa eikä se maailmakaan tähän kaadu.")}")
 
-    input("  [enter] = takaisin päävalikkoon")
-    os.remove("peliprojekti/progress/save_data.json")
-    player.load_game("peliprojekti/progress/default_data.json")
+    input("\n  [enter] = takaisin päävalikkoon")
+    os.remove(Path(__file__).parent/"progress"/"save_data.json")
+    player.load_game(Path(__file__).parent/"progress"/"default_data.json")
     clear_shell()

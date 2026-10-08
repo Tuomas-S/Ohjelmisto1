@@ -137,7 +137,7 @@ romua = Functional(
 
 yöpuku = Functional(
     name = "Yöpuku",
-    foundText = "Nappaat kaapistasi sinisen yöpukusi. Näytät ihan Herra Hakkaraiselta se päällä. Vaihda vaatteet ennen nukkumaanmenoa.",
+    foundText = "Nappaat kaapista sinisen yöpukusi. Näytät ihan Herra Hakkaraiselta se päällä. Vaihda vaatteet ennen nukkumaanmenoa.",
     usedText = "Pitkästä aikaa pääsee taas nukkumaan. Koulu avataankin jo huomenna ja odotat innolla seuraavaa päivää.",
     itemNotUsed = "Älä nyt hyvä ihminen rupea täällä vaihtamaan vaatteita!!",
     isSingleUse = False,

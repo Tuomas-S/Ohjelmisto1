@@ -31,7 +31,7 @@ class User:
             "locations": [location.to_dictionary() for location in allLocations],
             "user": self.to_dictionary()
         }
-        with open("peliprojekti/progress/save_data.json", "w", encoding="utf-8") as file:
+        with open(Path(__file__).parents[1]/"progress"/"save_data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
     # Pelin lataus
@@ -83,7 +83,7 @@ class User:
                            "  [enter] = peruuta \n\n"
                            "  Valitse toiminto: ")
             if choice.lower() == "ok":
-                os.remove("peliprojekti/progress/save_data.json")
+                os.remove(Path(__file__).parents[1]/"progress"/"save_data.json")
             else:
                 self.main_menu()
                 return
@@ -125,7 +125,7 @@ class User:
             for location in self.location.connections:
                 if choice.lower() == location.name.lower():
                     if location.isLocked:
-                        code = input(f"{fancyLine} {divide(location.lockedText)} ")
+                        code = input(fancyLine + divide(location.lockedText))
                         if self.location == kuja and code == "52971" and varasto.isLocked == True:
                             varasto.isLocked = False
                             kuja.searchText = "Kujalla on erittäin ahdasta ja likaista. Onneksi et kärsi ahtaan paikan kammosta."
@@ -215,7 +215,7 @@ class User:
     # Päävalikko
     def main_menu(self):
         clear_shell()
-        hasSave = (Path(__file__).parent.parent/"progress"/"save_data.json").exists()
+        hasSave = (Path(__file__).parents[1]/"progress"/"save_data.json").exists()
         if hasSave:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
@@ -240,10 +240,10 @@ class User:
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
-            self.load_game("peliprojekti/progress/save_data.json")
+            self.load_game(Path(__file__).parents[1]/"progress"/"save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
             clear_shell()
-            with open("peliprojekti/misc/instructions.txt", "r", encoding = "utf-8") as file:
+            with open(Path(__file__).parents[1]/"misc"/"instructions.txt", "r", encoding = "utf-8") as file:
                 data = file.readlines()
             for line in data:
                 print(line.rstrip("\n"))
