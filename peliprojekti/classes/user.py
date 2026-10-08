@@ -239,7 +239,6 @@ class User:
                            "  Valitse toiminto: ")
         if choice == "1":
             self.new_game()
-            self.save_game()
         elif hasSave and choice == "2":
             self.load_game(Path(__file__).parents[1]/"progress"/"save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
