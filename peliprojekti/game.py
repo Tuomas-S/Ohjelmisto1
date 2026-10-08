@@ -1,5 +1,5 @@
-from user import *
-from text_format import *
+from classes.user import *
+from misc.text_format import *
 
 while True:
     player.main_menu()
@@ -170,5 +170,6 @@ while True:
             input(fancyLine + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Kaupungin asukkaat valittavat myös tilojen ja luokkahuoneiden puutteesta \n\n  Pisteet: ★ ☆ ☆"))
         else:
             input(fancyLine + divide("Rakensit koulun, mutta koulutuksen laadussa on puutteita. Olet saanut kuitenkin kehuja koulun tiloista ja viihtyvyydestä. \n\n  Pisteet: ★ ★ ☆"))
-    os.remove("peliprojekti/game_data.json")
+    os.remove("peliprojekti/progress/save_data.json")
+    player.load_game("peliprojekti/progress/default_data.json")
     clear_shell()

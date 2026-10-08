@@ -1,0 +1,247 @@
+{
+    "items": [
+        {
+            "type": "Item",
+            "name": "Kartta",
+            "foundText": "Löysit kartan. Tästä voi olla paljon hyötyä.",
+            "usedText": "  ╭───────────────═══════════════════───────═════╗\n  │                                              ║\n  │           皿  ⌂ ⌂             ₅        ^     ║\n  ║    ╭╌╌ [ Keskusta ] ══╤═ [ Koti ]      N     ║\n  ║    ┆      ⁹ ║ ⌂⌂      │      ┆              ─╢\n  │ [ Kuja ]  ⌂ ╚═╗       ╰─ [ Metsä ] ╌╌╌╮      │\n  │    ┆ ¹        ║          ♣Ψ  │ ⌂      ┆ ₄    │\n  ║    ┆      [ Kauppa ]       ♣ │    [ Raunio ] ║\n  ╠═   ┆           ²             │ Ψ      ┆      ║\n  ║    ╰╌ [ ??? ] † †        [ Pelto ] ╌╌╌╯      ║\n  ║                †      ▲▲      ⁷      ~~~     │\n  ║                                              │\n  ╚═════════─────════════────────────────────────╯\n"
+        },
+        {
+            "type": "Item",
+            "name": "Kärryt",
+            "foundText": "Löysit kottikärryt. Niillä saat kannettua raskaat tavarat paikasta toiseen.",
+            "usedText": "Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."
+        },
+        {
+            "type": "Item",
+            "name": "Kirjat",
+            "foundText": "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
+            "usedText": "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Loppupäivästä jos sinulla on aikaa, voit silmäillä kirjat läpi ja päättää haluatko käyttää niitä opetusmateriaaleina."
+        },
+        {
+            "type": "Item",
+            "name": "Työkalut",
+            "foundText": "Löysit sattumalta myös ikivanhan työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin. Nyt on aika palata takaisin kauppaan.",
+            "usedText": "Työkalulaatikossasi on saha, vasara, pora sekä ruuvimeisseli. Tarvitset näitä koulun rakentamiseen."
+        },
+        {
+            "type": "Functional",
+            "name": "Rakennuslupa",
+            "foundText": "Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi.",
+            "usedText": "Pääset vihdoin aloittamaan rakennusurakkasi. Sinulta puuttuu kuitenkin vielä työkalut sekä rakennusmateriaalit.",
+            "itemNotUsed": "Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Sorkkarauta",
+            "foundText": "Paniikki meinaa iskeä, kunnes havaitset huoneen nurkassa olevan sorkkaraudan. Ehkä saat oven tiirikoitua auki.",
+            "usedText": "Sorkkarauta uppoaa hyvin kujaa peittävien lautojen alle. Saat kangettua naulat irti ja avaat reitin kujalle.",
+            "itemNotUsed": "Et ole nyt väkivaltaisella tuulella.",
+            "isSingleUse": false,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Avain",
+            "foundText": "Ojennat sorkkaraudan lipaston alle ja nykäiset vajan avaimen kätesi ulottuville.",
+            "usedText": "Vajan lukko aukeaa ja näet sisällä kaikenlaista siistiä.",
+            "itemNotUsed": "Avain ei käy tähän.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Harava",
+            "foundText": "Vajan seinustalla nojaa myös harava. Toivottavasti se nyt kestää raskaampiakin töitä.",
+            "usedText": "Haravoit pellolta lehtiä, heinää ja muuta roskaa. Jossain kohtaa haravasi kuitenkin hajoaa.",
+            "itemNotUsed": "Vaikka kuinka tahtoisit pitää kaupunkia siistinä, sinulla ei ole nyt aikaa siihen.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Rahaa",
+            "foundText": "Löysit possupankkisi, jonka tungit aikoinaan täyteen seteleitä. Juuri sopivasti rahaa rakennusmateriaalien ostamiseen.",
+            "usedText": "Et ole säästänyt turhaan kaikkien näiden vuosien ajan. Kaikki rahasi kuluu rakennusmateriaaleihin ja nyt toivot ettei lisäkustannuksia tule enempää.",
+            "itemNotUsed": "Sinulla ei ole mitään ostettavaa.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Materiaalit",
+            "foundText": "Hankit myös kasan lautaa, ruuveja, nauloja, peltiä ja kaikkea muuta tarvittavaa.",
+            "usedText": "Nyt kun vihdoin löysit kaiken tarvitsemasi, sait rakennettua pienen koulun. Budjettisi ei ollut kovin suuri, joten tiloja on rajallisesti. Voit nyt halutessasi palata kotiin nukkumaan tai jatkaa tutkimista. Koulu avataan vasta huomenna.",
+            "itemNotUsed": "Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Romua",
+            "foundText": "Löysit ison kasan romua, jota voit käyttää rakennusmateriaalina. Näillä saat laajennettua koulun tiloja huomattavasti.",
+            "usedText": "Laajensit koulua rakentamalla uusia luokkahuoneita sekä varastotilan.",
+            "itemNotUsed": "Et voi rakentaa mitään juuri nyt. Varmista, että sinulla on työkalusi mukana ja että olet työmaalla.",
+            "isSingleUse": true,
+            "usedIn": []
+        },
+        {
+            "type": "Functional",
+            "name": "Yöpuku",
+            "foundText": "Nappaat kaapistasi sinisen yöpukusi. Näytät ihan Herra Hakkaraiselta se päällä. Vaihda vaatteet ennen nukkumaanmenoa.",
+            "usedText": "Pitkästä aikaa pääsee taas nukkumaan. Koulu avataankin jo huomenna ja odotat innolla seuraavaa päivää.",
+            "itemNotUsed": "Älä nyt hyvä ihminen rupea täällä vaihtamaan vaatteita!!",
+            "isSingleUse": false,
+            "usedIn": []
+        }
+    ],
+    "locations": [
+        {
+            "name": "Keskusta",
+            "searchText": "Kaupunki on täynnä vilinää ja melua. Nauttisit mieluummin ajastasi luonnossa.",
+            "isLocked": true,
+            "lockedText": "Pakkaa tavarasi mukaan ennen keskustaan suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy sekä kartta että rakennuslupa.",
+            "hasItem": [],
+            "acceptsItem": [
+                "Rakennuslupa",
+                "Sorkkarauta"
+            ],
+            "connections": [
+                "Koti",
+                "Metsä",
+                "Kauppa",
+                "Kuja"
+            ]
+        },
+        {
+            "name": "Koti",
+            "searchText": "Kotisi näyttää ihanan tunnelmalliselta. Tahtoisit mennä takaisin nukkumaan, mutta sinulla riittää vielä tekemistä.",
+            "isLocked": false,
+            "lockedText": "Rahoja etsiessä työnsit vahingossa kellarin oven kiinni ja lukitsit sen. Olet jumissa...",
+            "hasItem": [
+                "Kartta",
+                "Rakennuslupa"
+            ],
+            "acceptsItem": [
+                "Kirjat"
+            ],
+            "connections": [
+                "Keskusta",
+                "Metsä"
+            ]
+        },
+        {
+            "name": "Kellari",
+            "searchText": "Ikivanha hämärä kellarisi haisee tunkkaiselta. Toivottavasti ei ole mitään homeongelmia tai muuten voi tulla kalliiksi.",
+            "isLocked": false,
+            "lockedText": "Huhhuh. Tonne ei kannata enää mennä.",
+            "hasItem": [],
+            "acceptsItem": [],
+            "connections": [
+                "Koti"
+            ]
+        },
+        {
+            "name": "Kuja",
+            "searchText": "Kujalla on erittäin ahdasta ja likaista. Kujan toisessa päässä on ovi, jossa on numerolukko. Oven vieressä on pieni lappu, jossa lukee \"Koti, Kauppa, Keskusta, Pelto, Kuja\".",
+            "isLocked": true,
+            "lockedText": "Kujalle vievä portti on muurattu kiinni laudoilla. Koitat repiä niitä irti mutta naulat ovat liian lujasti kiinni.",
+            "hasItem": [],
+            "acceptsItem": [],
+            "connections": [
+                "Keskusta",
+                "Varasto"
+            ]
+        },
+        {
+            "name": "Metsä",
+            "searchText": "Tunnet raikkaan ilman keuhkoissasi ja nenääsi tunkeutuu ihana luonnon tuoksu. Ehkä joku päivä voisit tulla tänne telttaretkelle.",
+            "isLocked": true,
+            "lockedText": "Pakkaa tavarasi mukaan ennen metsään suuntaamista. Tutki aluetta kunnes inventaariostasi löytyy sekä kartta että rakennuslupa.",
+            "hasItem": [],
+            "acceptsItem": [
+                "Avain"
+            ],
+            "connections": [
+                "Koti",
+                "Keskusta",
+                "Pelto",
+                "Raunio"
+            ]
+        },
+        {
+            "name": "Kauppa",
+            "searchText": "Kaupan hyllyt ovat täynnä rakennusmateriaaleja.",
+            "isLocked": false,
+            "lockedText": "Sinun kannattaa hakea kotoasi rahaa ennen kauppaan palaamista.",
+            "hasItem": [],
+            "acceptsItem": [],
+            "connections": [
+                "Keskusta"
+            ]
+        },
+        {
+            "name": "Raunio",
+            "searchText": "Löydät metsän laidalta raunion. Mahtaa olla jokin hylätty tehdas. Alueelta löytyy erilaisia materiaaleja joista voisi olla hyötyä koulun rakentamisessa. Et jaksa kuitenkaan kantaa niitä.",
+            "isLocked": false,
+            "lockedText": "Ei ole lukittu",
+            "hasItem": [],
+            "acceptsItem": [],
+            "connections": [
+                "Metsä",
+                "Pelto"
+            ]
+        },
+        {
+            "name": "Varasto",
+            "searchText": "Laitat varaston valot päälle. Tomua kaikkialla. Et välttämättä halua lorvailla täällä turhan kauaa ellet halua tuberkuloosia.",
+            "isLocked": true,
+            "lockedText": "Rakennuksen ovi on lukossa. Anna 5-numeroinen koodi päästäksesi sisään: ",
+            "hasItem": [
+                "Kirjat"
+            ],
+            "acceptsItem": [],
+            "connections": [
+                "Kuja"
+            ]
+        },
+        {
+            "name": "Pelto",
+            "searchText": "Tämä pelto ei ole mikään kaunein nähtävyys. Enemmän sitä voisi kutsua ryteiköksi tai vaikka taistelukentäksi.",
+            "isLocked": false,
+            "lockedText": "Ei ole lukittu",
+            "hasItem": [],
+            "acceptsItem": [
+                "Rakennuslupa",
+                "Harava"
+            ],
+            "connections": [
+                "Metsä",
+                "Raunio"
+            ]
+        },
+        {
+            "name": "Vaja",
+            "searchText": "Haistat jotain mätääntynyttä. Et muista milloin viimeksi olisit käynyt täällä.",
+            "isLocked": true,
+            "lockedText": "Tirkistelet lautojen välistä vajan sisään. Näet kottikärryt sekä haravan. Ovi on lukittu, mutta avaimen pitäisi löytyä kotoasi.",
+            "hasItem": [
+                "Kärryt",
+                "Harava"
+            ],
+            "acceptsItem": [],
+            "connections": [
+                "Metsä"
+            ]
+        }
+    ],
+    "user": {
+        "name": "",
+        "age": 0,
+        "location": "Koti",
+        "status": "Pakkaa tavarasi mukaan",
+        "inventory": []
+    }
+}

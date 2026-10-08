@@ -2,18 +2,11 @@
 
 **Tuomas Soini**
 
-## user.py
-Pelaaja-luokka 
-Pelin eri toiminnot
+## classes
+Luokat ja pelin toiminnot
 
-## items.py
-Pelin esineet
-
-# locations.py
-Pelin sijainnit
-
-# text_format.py
-Tekstin muotoiluun liittyvät asiat
+# misc
+Intro, ohjeet ja tekstin formatointiin liittyvät asiat
 
 ## game.py
 Pääohjelma, jossa peli pyörii

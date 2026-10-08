@@ -1,4 +1,4 @@
-from items import *
+from classes.items import *
 
 class Location:
     def __init__(self, name, searchText, isLocked, lockedText, hasItem, acceptsItem, connections = None):

@@ -1,9 +1,9 @@
 import time
 import random
 import json
-from items import *
-from locations import *
-from text_format import *
+from classes.items import *
+from classes.locations import *
+from misc.text_format import *
 
 class User:
     def __init__(self, name, age, location, status, inventory):
@@ -30,12 +30,12 @@ class User:
             "locations": [location.to_dictionary() for location in allLocations],
             "user": self.to_dictionary()
         }
-        with open("peliprojekti/game_data.json", "w", encoding="utf-8") as file:
+        with open("peliprojekti/data/save_data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
     # Pelin lataus
-    def load_game(self):
-        with open("peliprojekti/game_data.json", "r", encoding="utf-8") as file:
+    def load_game(self, path):
+        with open(path, "r", encoding="utf-8") as file:
             data = json.load(file)
         itemLookup = {item.name: item for item in allItems}
         locationLookup = {location.name: location for location in allLocations}
@@ -72,7 +72,7 @@ class User:
         self.inventory = [itemLookup[itemName] for itemName in userData["inventory"]]
 
     def new_game(self):
-        if os.path.exists("peliprojekti/game_data.json"):
+        if os.path.exists("peliprojekti/data/save_data.json"):
             clear_shell()
             choice = input("╭──────────────────────────────────────────────╮ \n"
                            "│ Haluatko varmasti aloittaa uuden pelin?      │ \n"
@@ -82,12 +82,16 @@ class User:
                            "  [enter] = peruuta \n\n"
                            "  Valitse toiminto: ")
             if choice.lower() == "ok":
-                os.remove("peliprojekti/game_data.json")
+                os.remove("peliprojekti/data/save_data.json")
             else:
                 self.main_menu()
                 return
 
         # Luodaan uusi pelaaja
+        clear_shell()
+        print("╭────────────────────────────────╮ \n"
+              "│ Luodaan uusi profiili.         │ \n"
+              "╰────────────────────────────────╯ \n")
         player.name = input("  Nimi: ")
         player.age = input("  Ikä:  ")
         while True:
@@ -99,10 +103,10 @@ class User:
                 break
         player.age = int(player.age)
         if player.age < 12:
-            input("\n  Olet alaikäinen, suljetaan sovellus...")
+            input(f"{fancyLine}  Olet alaikäinen, suljetaan sovellus...")
             exit()
         else:
-            input(f"\n  Tervetuloa {player.name}! \n  [enter] = aloita peli")
+            input(f"{fancyLine}  Tervetuloa {player.name}! \n  [enter] = aloita peli")
             clear_shell()
 
     # Pelaajan liikkuminen
@@ -194,7 +198,6 @@ class User:
                   "│ Täältä näet löytämäsi esineet.        │ \n"
                   "╰───────────────────────────────────────╯ \n\n"
                   "  [enter] = takaisin")
-            self.inv_show()
         else:
             print("╭─────────────────────────────────────────╮ \n"
                   "│ Inventaariossasi on:                    │")
@@ -210,7 +213,7 @@ class User:
     # Päävalikko
     def main_menu(self):
         clear_shell()
-        hasSave = os.path.exists("peliprojekti/game_data.json")
+        hasSave = os.path.exists("peliprojekti/data/save_data.json")
         if hasSave:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
@@ -229,13 +232,13 @@ class User:
                            "│                TEKIJÄ: Tuomas Soini                │ \n"
                            "╰────────────────────────────────────────────────────╯ \n\n"
                            "  [1] = Uusi peli \n"
-                           "  [2] = Jatka peliä \n"
+                           "  [2] = Avaa ohjeet \n"
                            "  [3] = Sulje sovellus \n\n"
                            "  Valitse toiminto: ")
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
-            self.load_game()
+            self.load_game("peliprojekti/data/save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
             clear_shell()
             input("Ohjeet tulee tähän")
@@ -259,15 +262,15 @@ class User:
     # Pelin sisäinen valikko
     def game_menu(self, mission):
         clear_shell()
-        choice = input(f"╭─────────────────────────────────────────────────────╮ \n"
-                        "│ [⌂] SIJAINTI: {self.location.name:<38}│ \n"
-                        "│ [≡] TEHTÄVÄ:  {mission:<38}│ \n"
-                        "╰─────────────────────────────────────────────────────╯ \n\n"
-                        "  [1] = Vaihda sijaintia \n"
-                        "  [2] = Tutki aluetta \n"
-                        "  [3] = Avaa inventaario \n"
-                        "  [4] = Sulje sovellus \n\n"
-                        "  Valitse toiminto: ")
+        choice = input("╭─────────────────────────────────────────────────────╮ \n"
+                      f"│ [⌂] SIJAINTI: {self.location.name:<38}│ \n"
+                      f"│ [≡] TEHTÄVÄ:  {mission:<38}│ \n"
+                       "╰─────────────────────────────────────────────────────╯ \n\n"
+                       "  [1] = Vaihda sijaintia \n"
+                       "  [2] = Tutki aluetta \n"
+                       "  [3] = Avaa inventaario \n"
+                       "  [4] = Sulje sovellus \n\n"
+                       "  Valitse toiminto: ")
         if choice == "1":
             self.move()
         elif choice == "2":
