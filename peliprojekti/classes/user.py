@@ -1,6 +1,7 @@
 import time
 import random
 import json
+from pathlib import Path
 from classes.items import *
 from classes.locations import *
 from misc.text_format import *
@@ -214,7 +215,7 @@ class User:
     # Päävalikko
     def main_menu(self):
         clear_shell()
-        hasSave = os.path.exists("peliprojekti/progress/save_data.json")
+        hasSave = (Path(__file__).resolve().parent.parent / "progress" / "save_data.json").exists()
         if hasSave:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
