@@ -215,7 +215,7 @@ class User:
     # Päävalikko
     def main_menu(self):
         clear_shell()
-        hasSave = (Path(__file__).resolve().parent.parent / "progress" / "save_data.json").exists()
+        hasSave = (Path(__file__).parent.parent/"progress"/"save_data.json").exists()
         if hasSave:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
