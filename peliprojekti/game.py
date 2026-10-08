@@ -22,7 +22,7 @@ def check_environment(player):
         input(f"\n{divide("Samalla kun lastaat romua kottikärryihisi, joku varastaa sinun työkalusi ja juoksee metsän syvyyksiin. Varas ei voi piileksiä kaukana. Etsi hänet ja ota työkalusi takaisin.")}")
         player.inventory.remove(työkalut)
         random.choice([keskusta.hasItem, metsä.hasItem, kauppa.hasItem, pelto.hasItem]).append(työkalut)
-        työkalut.foundText = "Löydät työkaluvarkaan piileksimästä ja otat työkalusi takaisin. Varas juoksee itkien karkuun ja katoaa taivaan tuuliin."
+        työkalut.foundText = "Löydät työkaluvarkaan piileksimästä ja uhkailet häntä sorkkaraudalla. Nappaat työkalut varkaalta, joka juoksee itkien karkuun ja katoaa taivaan tuuliin."
 
 while True:
     player.main_menu()
