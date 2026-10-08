@@ -239,6 +239,7 @@ class User:
                            "  Valitse toiminto: ")
         if choice == "1":
             self.new_game()
+            self.save_game()
         elif hasSave and choice == "2":
             self.load_game(Path(__file__).parents[1]/"progress"/"save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
@@ -268,6 +269,7 @@ class User:
     # Pelin sisäinen valikko
     def game_menu(self, mission):
         clear_shell()
+        self.save_game()
         choice = input("╭─────────────────────────────────────────────────────╮ \n"
                       f"│ [⌂] SIJAINTI: {self.location.name:<38}│ \n"
                       f"│ [≡] TEHTÄVÄ:  {mission:<38}│ \n"
@@ -296,7 +298,6 @@ class User:
                            "  [enter] = peruuta \n\n"
                            "  Valitse toiminto: ")
             if choice.lower() == "ok":
-                self.save_game()
                 exit()
             return("Restart")
         else:

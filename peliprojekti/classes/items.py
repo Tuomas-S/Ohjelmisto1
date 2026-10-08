@@ -59,12 +59,6 @@ kärryt = Item(
     usedText = "Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."
     )
 
-kirjat = Item(
-    name = "Kirjat",
-    foundText = "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
-    usedText = "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Loppupäivästä jos sinulla on aikaa, voit silmäillä kirjat läpi ja päättää haluatko käyttää niitä opetusmateriaaleina."
-    )
-
 työkalut = Item(
     name = "Työkalut",
     foundText = "Löysit sattumalta myös ikivanhan työkalulaatikkosi. Nappaat mukaasi sahan, vasaran, poran, sekä ruuvimeisselin. Nyt on aika palata takaisin kauppaan.",
@@ -77,6 +71,15 @@ rakennuslupa = Functional(
     foundText = "Otat mukaan myös rakennusluvan. Voit nyt lähteä seikkailemaan ympäri kaupunkia. Valitse rakennuspaikka käyttämällä rakennuslupa inventaariostasi.",
     usedText = "Pääset vihdoin aloittamaan rakennusprojektisi. Sinulta puuttuu kuitenkin vielä työkalut sekä rakennusmateriaalit.",
     itemNotUsed = "Et voi rakentaa tähän. Keskustasta ja pellolta pitäisi löytyä rakennusalueita.",
+    isSingleUse = True,
+    usedIn = []
+    )
+
+kirjat = Functional(
+    name = "Kirjat",
+    foundText = "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
+    usedText = "Laitat kirjat koulun varastotilaan odottamaan koulun avauspäivää.",
+    itemNotUsed = "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Ne kannattaa viedä koululle",
     isSingleUse = True,
     usedIn = []
     )

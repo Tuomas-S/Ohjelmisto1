@@ -8,12 +8,11 @@
   tulee tehdä edetäkseen. Voit kirjoittaa inventaariossa esineen
   nimen käyttääksesi sen. Paikkaa vaihtaessa sinun tulee
   kirjoittaa sijainnin nimi, johon haluat siirtyä.
-  
+
 » Pääset teksteissä eteenpäin painamalla enteriä näppäimistössäsi.
   Osassa valikoista lukee "[enter] = takaisin", jolloin pääset
   edelliseen valikkoon painamalla kyseistä näppäintä.
 
-» Peli tallentaa automaattisesti, kun valitset toiminnon "Lopeta
-  peli". Sovelluksen sulkeminen muulla tavalla ei tallenna peliä.
+» Peli tallentaa automaattisesti. Voit siis sulkea pelin missä kohtaa tahansa.
   Jos pelisi on tallennettu, voit jatkaa siitä mihin jäit
   valitsemalla "Jatka peliä"
