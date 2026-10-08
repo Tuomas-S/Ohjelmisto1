@@ -10,7 +10,7 @@ Päätarinan lisäksi pelaaja voi löytää ylimääräisiä esineitä ja sijain
 ## Tavoite
 
 Pelin lopussa katsotaan kolme kriteeriä:  
-Onko koulu rakennettu, onko tilat tarpeeksi isot ja onko pelaajalla oppimateriaaleja.  
+Onko koulu rakennettu, ovatko tilat tarpeeksi isot ja onko pelaajalla oppimateriaaleja.  
 Näiden kriteerien perusteella pelaaja saa erilaiset lopetukset sekä pisteet (1-3 kriteeriä täytetty).
 
 ## Toimintaperiaatteet
