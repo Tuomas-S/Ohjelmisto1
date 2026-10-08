@@ -8,13 +8,15 @@ while True:
         if keskusta in sorkkarauta.usedIn:
             kuja.isLocked = False
 
-        if työkalut not in player.inventory and player.location in rakennuslupa.usedIn:
-            if materiaalit in player.location.acceptsItem:
-                player.location.acceptsItem.remove(materiaalit)
-            if romua in player.location.acceptsItem:
-                player.location.acceptsItem.remove(romua)
-        if työkalut in player.inventory and player.location in rakennuslupa.usedIn:
-            player.location.acceptsItem.extend([materiaalit, romua])
+        if player.location in rakennuslupa.usedIn:
+            if työkalut in player.inventory:
+                for item in [materiaalit, romua]:
+                    if item not in player.location.acceptsItem:
+                        player.location.acceptsItem.append(item)
+            else:
+                for item in [materiaalit, romua]:
+                    if item in player.location.acceptsItem:
+                        player.location.acceptsItem.remove(item)
 
         if romua in player.inventory and raunio not in romua.usedIn:
             romua.usedIn.append(raunio)

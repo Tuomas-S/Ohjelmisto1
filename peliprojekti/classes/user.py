@@ -30,7 +30,7 @@ class User:
             "locations": [location.to_dictionary() for location in allLocations],
             "user": self.to_dictionary()
         }
-        with open("peliprojekti/data/save_data.json", "w", encoding="utf-8") as file:
+        with open("peliprojekti/progress/save_data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
     # Pelin lataus
@@ -72,7 +72,7 @@ class User:
         self.inventory = [itemLookup[itemName] for itemName in userData["inventory"]]
 
     def new_game(self):
-        if os.path.exists("peliprojekti/data/save_data.json"):
+        if os.path.exists("peliprojekti/progress/save_data.json"):
             clear_shell()
             choice = input("╭──────────────────────────────────────────────╮ \n"
                            "│ Haluatko varmasti aloittaa uuden pelin?      │ \n"
@@ -82,7 +82,7 @@ class User:
                            "  [enter] = peruuta \n\n"
                            "  Valitse toiminto: ")
             if choice.lower() == "ok":
-                os.remove("peliprojekti/data/save_data.json")
+                os.remove("peliprojekti/progress/save_data.json")
             else:
                 self.main_menu()
                 return
@@ -213,7 +213,7 @@ class User:
     # Päävalikko
     def main_menu(self):
         clear_shell()
-        hasSave = os.path.exists("peliprojekti/data/save_data.json")
+        hasSave = os.path.exists("peliprojekti/progress/save_data.json")
         if hasSave:
             choice = input("╭────────────────────────────────────────────────────╮ \n"
                            "│                OPERAATIO PERUSKOULU                │ \n"
@@ -238,7 +238,7 @@ class User:
         if choice == "1":
             self.new_game()
         elif hasSave and choice == "2":
-            self.load_game("peliprojekti/data/save_data.json")
+            self.load_game("peliprojekti/progress/save_data.json")
         elif (hasSave and choice == "3") or (not hasSave and choice == "2"):
             clear_shell()
             input("Ohjeet tulee tähän")
