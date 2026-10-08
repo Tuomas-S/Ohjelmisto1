@@ -298,7 +298,6 @@ class User:
                            "  Valitse toiminto: ")
             if choice.lower() == "ok":
                 exit()
-            return("Restart")
         else:
             input(f"{fancyLine}  Kyseistä toimintoa ei löydy. Valitse toiminto \n  kirjoittamalla sitä vastaava numero.")
 
