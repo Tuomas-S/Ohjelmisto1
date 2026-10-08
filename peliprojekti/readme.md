@@ -16,7 +16,8 @@ Näiden kriteerien perusteella pelaaja saa erilaiset lopetukset sekä pisteet (1
 ## Toimintaperiaatteet
 
 Peli koostuu erilaisista valikoista, joiden avulla pelaaja navigoi ympäri pelialuetta.  
-Pelaaja voi kerätä esineitä inventaarioon, käyttää esineitä, tutkia eri alueita sekä vaihtaa paikkaa.
+Pelaaja voi kerätä esineitä inventaarioon, käyttää esineitä, tutkia eri alueita sekä vaihtaa paikkaa.  
+Peli etenee kun pelaaja tekee tiettyjä toimintoja tietyissä paikoissa.
 
 ## Kestävä kehitys
 
