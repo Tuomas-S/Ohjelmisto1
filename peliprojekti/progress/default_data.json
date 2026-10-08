@@ -13,10 +13,13 @@
             "usedText": "Näihin kottikärryihin mahtuu yllättävän paljon tavaraa. Nyt saat kuljetettua myös raskaita esineitä."
         },
         {
-            "type": "Item",
+            "type": "Functional",
             "name": "Kirjat",
             "foundText": "Tila on täynnä erilaisia oppikirjoja. Mitä koulu olisikaan ilman oppimateriaaleja? Päätät ottaa ison kasan kirjoja mukaan.",
-            "usedText": "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Loppupäivästä jos sinulla on aikaa, voit silmäillä kirjat läpi ja päättää haluatko käyttää niitä opetusmateriaaleina."
+            "usedText": "Laitat kirjat koulun varastotilaan odottamaan koulun avauspäivää.",
+            "itemNotUsed": "Kirjakokoelmastasi löytyy mm. historiaa, matikkaa, äidinkieltä ja luonnontieteitä. Ne kannattaa viedä koululle",
+            "isSingleUse": true,
+            "usedIn": []
         },
         {
             "type": "Item",
@@ -238,8 +241,8 @@
         }
     ],
     "user": {
-        "name": "",
-        "age": 0,
+        "name": "Player",
+        "age": 67,
         "location": "Koti",
         "status": "Pakkaa tavarasi mukaan",
         "inventory": []
