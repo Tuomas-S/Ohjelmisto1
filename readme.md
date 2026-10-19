@@ -40,12 +40,23 @@ Tehtävät 7.1-7.6
 
 ## mod08
 
-.
+Monikko, joukko ja sanakirja  
+Tehtävät 8.1-8.2
 
 ## mod09
 
 Luokka, olio ja alustaja  
 Tehtävät 9.1-9.4
+
+## mod10
+
+Assosiaatio  
+Tehtävät 10.1-10.2
+
+## mod 11
+
+Periytyminen  
+Tehtävä 11.2
 
 ## peliprojekti
 
